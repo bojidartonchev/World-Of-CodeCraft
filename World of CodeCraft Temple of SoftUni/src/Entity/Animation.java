@@ -13,37 +13,37 @@ public class Animation {
     private boolean playedOnce;
 
     public  Animation() {
-        playedOnce = false;
+        this.playedOnce = false;
     }
 
     public void setFrames(BufferedImage[] frames) {
         this.frames = frames;
-        currentFrame = 0;
-        startTime = System.nanoTime();
-        playedOnce = false;
+        this.currentFrame = 0;
+        this.startTime = System.nanoTime();
+        this.playedOnce = false;
     }
 
-    public void setDelay(long d) { delay = d; }
-    public void setFrame(int i) { currentFrame = i; }
+    public void setDelay(long d) { this.delay = d; }
+    public void setFrame(int i) { this.currentFrame = i; }
 
     public void update() {
 
-        if(delay == -1) return;
+        if(this.delay == -1) return;
 
-        long elapsed = (System.nanoTime() - startTime) / 1000000;
-        if(elapsed > delay) {
-            currentFrame++;
-            startTime = System.nanoTime();
+        long elapsed = (System.nanoTime() - this.startTime) / 1000000;
+        if(elapsed > this.delay) {
+            this.currentFrame++;
+            this.startTime = System.nanoTime();
         }
-        if(currentFrame == frames.length) {
-            currentFrame = 0;
-            playedOnce = true;
+        if(this.currentFrame == this.frames.length) {
+            this.currentFrame = 0;
+            this.playedOnce = true;
         }
 
     }
 
-    public int getFrame() { return currentFrame; }
-    public BufferedImage getImage() { return frames[currentFrame]; }
-    public boolean hasPlayedOnce() { return playedOnce; }
+    public int getFrame() { return this.currentFrame; }
+    public BufferedImage getImage() { return this.frames[this.currentFrame]; }
+    public boolean hasPlayedOnce() { return this.playedOnce; }
 
 }
