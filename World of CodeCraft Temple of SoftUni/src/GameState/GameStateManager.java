@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class GameStateManager {
 
-    public final int MENUSTATE = 0;
-    public static final int CREATENEWCHARACTERSTATE = 1;
-    public static final int LOADCHARACTERSTATE = 2;
-    public static final int LEVEL1STATE = 3;
+    public final int MENU_STATE = 0;
+    public static final int CREATE_NEW_CHARACTER_STATE = 1;
+    public static final int LOAD_CHARACTER_STATE = 2;
+    public static final int LEVEL_1_STATE = 3;
     ArrayList<GameState> gameStates;
     //index of the game state in the list
     private int currentState;
@@ -19,7 +19,7 @@ public class GameStateManager {
 
     public GameStateManager(GamePanel panel) {
         this.gameStates = new ArrayList<GameState>();
-        this.currentState = MENUSTATE;
+        this.currentState = MENU_STATE;
         this.gameStates.add(new MenuState(this));
         this.gameStates.add(new CreateCharacterState(this));
         this.gameStates.add(new LoadCharacterState(this));

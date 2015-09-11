@@ -1,13 +1,15 @@
 package GameState;
+import Entity.*;
 import Main.GamePanel;
 import TileMap.*;
 import java.awt.*;
+
 
 public class Level1State extends GameState{
 
     private TileMap tileMap;
     private Background bg;
-
+    //private HUD hud;
     public Level1State(GameStateManager gsm) {
         super(gsm);
         initialize();
@@ -20,6 +22,7 @@ public class Level1State extends GameState{
         this.tileMap.loadMap("/Maps/level1-1.map");
         this.tileMap.setPosition(0, 0);
         this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
+        //this.hud = new HUD();
     }
 
     @Override
@@ -33,6 +36,7 @@ public class Level1State extends GameState{
 
         //draw tilemap
         this.tileMap.draw(g);
+       // this.hud.draw(g);
 
     }
 
