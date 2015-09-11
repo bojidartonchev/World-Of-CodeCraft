@@ -62,13 +62,13 @@ public class MenuState extends GameState {
     private void select(){
         if(currentChoice == 0){
            //start
-            this.gsm.setState(GameStateManager.CREATENEWCHARACTERSTATE);
+            this.gsm.setState(GameStateManager.CREATE_NEW_CHARACTER_STATE);
         }
         if(currentChoice == 1){
-            this.gsm.setState(GameStateManager.LOADCHARACTERSTATE);
+            this.gsm.setState(GameStateManager.LOAD_CHARACTER_STATE);
         }
         if(currentChoice==2){
-            this.gsm.setState(GameStateManager.LEVEL1STATE);
+            this.gsm.setState(GameStateManager.LEVEL_1_STATE);
         }
         if(currentChoice == 3){
            //quit
