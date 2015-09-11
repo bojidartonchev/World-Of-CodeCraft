@@ -1,9 +1,10 @@
 package Entity.Enemies;
 
 import Entity.MapObject;
+import Interfaces.IEnemy;
 import TileMap.TileMap;
 
-public abstract class EnemyBase extends MapObject {
+public abstract class EnemyBase extends MapObject implements IEnemy{
 
     protected int currentHealth;
     protected int maxHealth;
