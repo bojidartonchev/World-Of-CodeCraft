@@ -11,8 +11,9 @@ public class MenuState extends GameState {
     private Background bg;
     private int currentChoice = 0;
     private String[] options = {
+            "Create New Character",
+            "Load Character",
             "Start",
-            "Help",
             "Quit"
     };
 
@@ -61,10 +62,15 @@ public class MenuState extends GameState {
     private void select(){
         if(currentChoice == 0){
            //start
+            this.gsm.setState(GameStateManager.CREATENEWCHARACTERSTATE);
+        }
+        if(currentChoice == 1){
+            this.gsm.setState(GameStateManager.LOADCHARACTERSTATE);
+        }
+        if(currentChoice==2){
             this.gsm.setState(GameStateManager.LEVEL1STATE);
-        } if(currentChoice == 1){
-           //help
-        } if(currentChoice == 2){
+        }
+        if(currentChoice == 3){
            //quit
             System.exit(0);
         }

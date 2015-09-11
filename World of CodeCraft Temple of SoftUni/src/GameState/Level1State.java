@@ -6,6 +6,7 @@ import java.awt.*;
 public class Level1State extends GameState{
 
     private TileMap tileMap;
+    private Background bg;
 
     public Level1State(GameStateManager gsm) {
         super(gsm);
@@ -18,6 +19,7 @@ public class Level1State extends GameState{
         this.tileMap.loadTiles("/Tilesets/grasstileset.gif");
         this.tileMap.loadMap("/Maps/level1-1.map");
         this.tileMap.setPosition(0, 0);
+        this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
     }
 
     @Override
@@ -27,8 +29,7 @@ public class Level1State extends GameState{
         GamePanel.SCALE = 3;
         GamePanel.HEIGHT = 820;
 
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+        bg.draw(g);
 
         //draw tilemap
         this.tileMap.draw(g);
