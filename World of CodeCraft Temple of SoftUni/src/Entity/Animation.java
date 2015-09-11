@@ -23,12 +23,18 @@ public class Animation {
         this.playedOnce = false;
     }
 
-    public void setDelay(long d) { this.delay = d; }
-    public void setFrame(int i) { this.currentFrame = i; }
+    public void setDelay(long d) {
+        this.delay = d;
+    }
+    public void setFrame(int i) {
+        this.currentFrame = i;
+    }
 
     public void update() {
 
-        if(this.delay == -1) return;
+        if(this.delay == -1) {
+            return;
+        }
 
         long elapsed = (System.nanoTime() - this.startTime) / 1000000;
         if(elapsed > this.delay) {
@@ -42,8 +48,16 @@ public class Animation {
 
     }
 
-    public int getFrame() { return this.currentFrame; }
-    public BufferedImage getImage() { return this.frames[this.currentFrame]; }
-    public boolean hasPlayedOnce() { return this.playedOnce; }
+    public int getFrame() {
+        return this.currentFrame;
+    }
+
+    public BufferedImage getImage() {
+        return this.frames[this.currentFrame];
+    }
+
+    public boolean hasPlayedOnce() {
+        return this.playedOnce;
+    }
 
 }

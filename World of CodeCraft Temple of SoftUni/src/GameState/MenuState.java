@@ -3,6 +3,7 @@ package GameState;
 import Main.GamePanel;
 import TileMap.Background;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -24,7 +25,8 @@ public class MenuState extends GameState {
         try{
             this.bg = new Background("/Backgrounds/backgroud.jpg", 1);
             //this.bg.setVector(-0.1, 0);
-            this.font = new Font("LifeCraft", Font.BOLD, 100);
+            this.font = new Font("LifeCraft", Font.BOLD, 60);
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -49,7 +51,7 @@ public class MenuState extends GameState {
             }else{
                 g.setColor(Color.YELLOW);
             }
-            g.drawString(options[i], GamePanel.WIDTH/2-100, GamePanel.HEIGHT/3 + i * 150);
+            g.drawString(options[i], GamePanel.WIDTH/2-options[i].length()*15, GamePanel.HEIGHT/3 + i * 100);
         }
 
     }
