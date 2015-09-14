@@ -1,14 +1,17 @@
 package GameState;
-import Entity.*;
+import Entity.Enemies.Enemy;
+import Entity.Enemies.HelmetEnemy;
 import Main.GamePanel;
 import TileMap.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class Level1State extends GameState{
 
     private TileMap tileMap;
     private Background bg;
+    private ArrayList<Enemy> enemies;
     //private HUD hud;
     public Level1State(GameStateManager gsm) {
         super(gsm);
@@ -22,6 +25,11 @@ public class Level1State extends GameState{
         this.tileMap.loadMap("/Maps/level1-1.map");
         this.tileMap.setPosition(0, 0);
         this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
+
+        this.enemies = new ArrayList<Enemy>();
+        HelmetEnemy helmetEnemy = new HelmetEnemy(tileMap);
+        helmetEnemy.setPosition(250, 200);
+        this.enemies.add(helmetEnemy);
         //this.hud = new HUD();
     }
 
@@ -37,12 +45,13 @@ public class Level1State extends GameState{
         //draw tilemap
         this.tileMap.draw(g);
        // this.hud.draw(g);
-
+        this.enemies.stream().forEach(enemy -> enemy.draw(g));
     }
 
     @Override
     public void update() {
-
+        // update enemies
+       this.enemies.stream().forEach(enemy-> enemy.update());
     }
 
     @Override

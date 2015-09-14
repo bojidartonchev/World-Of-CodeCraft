@@ -7,14 +7,15 @@ import TileMap.TileMap;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 import java.io.IOException;
 
-public class HelmetEnemy extends EnemyBase {
+public class HelmetEnemy extends Enemy {
 
     private BufferedImage[] sprites;
 
-    private final int numberOfSprites = 3;
-    private final long animationDelay = 300;
+    private final int numberOfSprites = 8;
+    private final long animationDelay = 200;
 
     public HelmetEnemy(TileMap tileMap){
         super(tileMap);
@@ -46,6 +47,7 @@ public class HelmetEnemy extends EnemyBase {
         this.animation.setFrames(sprites);
         this.animation.setDelay(animationDelay);
         this.right = true;
+        facingRight = true;
     }
 
     private void loadSprites() {
@@ -54,8 +56,12 @@ public class HelmetEnemy extends EnemyBase {
                     getClass().getResourceAsStream("/Sprites/Enemies/helmet-enemy.gif"));
             this.sprites = new BufferedImage[numberOfSprites];
             for (int i = 0; i < sprites.length; i++) {
+                try {
+                    this.sprites[i] = spriteSheet.getSubimage(i * this.width, 0, this.width, this.height);
+                }catch (RasterFormatException e){
+                    e.printStackTrace();
+                }
 
-                this.sprites[i] = spriteSheet.getSubimage(i * this.width, 0, this.width, this.height);
             }
         } catch (IOException e){
             e.printStackTrace();
@@ -83,7 +89,7 @@ public class HelmetEnemy extends EnemyBase {
             this.dy += this.fallSpeed;
         }
     }
-
+    @Override
     public void update(){
 
         // update position
@@ -104,13 +110,14 @@ public class HelmetEnemy extends EnemyBase {
         if(this.right  && dx == 0){
             this.right = false;
             this.left = true;
+            this.facingRight = false;
         }
 
-        if(left && dx == 0){
+        else if(left && dx == 0){
             this.left = false;
             this.right = true;
+            this.facingRight = true;
         }
-
         // update animation
         this.animation.update();
     }

@@ -1,6 +1,8 @@
 package Interfaces;
 
 
+import java.awt.*;
+
 public interface IEnemy {
 
      boolean isDead();
@@ -8,4 +10,6 @@ public interface IEnemy {
      int getDamage();
 
      void hit(int damage);
+
+     void update();
 }
