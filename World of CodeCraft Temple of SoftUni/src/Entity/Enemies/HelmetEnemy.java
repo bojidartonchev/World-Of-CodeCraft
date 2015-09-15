@@ -36,8 +36,6 @@ public class HelmetEnemy extends Enemy {
         this.cwidth = 20;
         this.cheight = 20;
 
-
-
         loadSprites();
         setAnimation();
     }
@@ -121,7 +119,7 @@ public class HelmetEnemy extends Enemy {
         // update animation
         this.animation.update();
     }
-
+    @Override
     public void draw(Graphics2D graphics){
         if(notOnScreen()){
             return;
