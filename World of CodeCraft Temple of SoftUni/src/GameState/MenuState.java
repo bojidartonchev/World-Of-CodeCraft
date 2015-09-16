@@ -6,6 +6,9 @@ import TileMap.Background;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MenuState extends GameState {
 
@@ -61,10 +64,15 @@ public class MenuState extends GameState {
         this.bg.update();
     }
 
-    private void select(){
+    private void select() throws IOException{
         if(currentChoice == 0){
            //start
-            this.gsm.setState(GameStateManager.CREATE_NEW_CHARACTER_STATE);
+            try {
+                ProcessBuilder pb = new ProcessBuilder("java", "-jar", "src\\Forms\\CreateCharacterForm.jar");
+                Process p = pb.start();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Exception occured" + ex);
+            }
         }
         if(currentChoice == 1){
             this.gsm.setState(GameStateManager.LOAD_CHARACTER_STATE);
@@ -81,7 +89,12 @@ public class MenuState extends GameState {
     @Override
     public void keyPressed(int k) {
         if(k == KeyEvent.VK_ENTER){
-            this.select();
+            try {
+                this.select();
+            }
+            catch (IOException ex){
+                System.out.println("error occured in selection");
+            }
         }else if(k == KeyEvent.VK_UP){
             currentChoice--;
             if (currentChoice == -1){
