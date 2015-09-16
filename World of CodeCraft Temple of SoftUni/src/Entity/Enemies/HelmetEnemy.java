@@ -1,34 +1,29 @@
 package Entity.Enemies;
 
 
-import Entity.Animation;
 import TileMap.TileMap;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.RasterFormatException;
-import java.io.IOException;
 
 public class HelmetEnemy extends Enemy {
 
-    private BufferedImage[] sprites;
+    private final int maxHealth = 2;
+    private final int damage = 2;
 
     private final int numberOfSprites = 8;
     private final long animationDelay = 200;
+    private final String spritesPath = "/Sprites/Enemies/helmet-enemy.gif";
 
     public HelmetEnemy(TileMap tileMap){
-        super(tileMap);
+        super(tileMap, EnemyType.HELMET_ENEMY);
 
         this.moveSpeed = 0.3;
         this.maxSpeed = 0.3;
         this.fallSpeed = 0.2;
         this.maxFallSpeed = 10.0;
 
-        this.maxHealth = 2;
-        this.currentHealth = maxHealth;
+        this.setMaxHealth(maxHealth);
+        this.setCurrentHealth(maxHealth);
 
-        this.damage = 1;
+        this.setDamage(damage);
 
         // sprite dimentions
         this.width = 30;
@@ -36,97 +31,15 @@ public class HelmetEnemy extends Enemy {
         this.cwidth = 20;
         this.cheight = 20;
 
-        loadSprites();
-        setAnimation();
+        super.loadSprites(spritesPath, numberOfSprites);
+        this.setAnimation(animationDelay);
     }
 
-    private void setAnimation() {
-        this.animation = new Animation();
-        this.animation.setFrames(sprites);
-        this.animation.setDelay(animationDelay);
+    protected void setAnimation(long animationDelay) {
+        super.setAnimation(animationDelay);
+
         this.right = true;
-        facingRight = true;
+        this.facingRight = true;
     }
-
-    private void loadSprites() {
-        try {
-            BufferedImage spriteSheet = ImageIO.read(
-                    getClass().getResourceAsStream("/Sprites/Enemies/helmet-enemy.gif"));
-            this.sprites = new BufferedImage[numberOfSprites];
-            for (int i = 0; i < sprites.length; i++) {
-                try {
-                    this.sprites[i] = spriteSheet.getSubimage(i * this.width, 0, this.width, this.height);
-                }catch (RasterFormatException e){
-                    e.printStackTrace();
-                }
-
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    private void goToNextPosition() {
-
-        // movement
-        if(this.left){
-            this.dx -= this.moveSpeed;
-            if(this.dx < -this.maxSpeed){
-                this.dx = -this.maxSpeed;
-            }
-        }
-        else if(this.right){
-            this.dx += moveSpeed;
-            if(this.dx > this.maxSpeed){
-                this.dx = this.maxSpeed;
-            }
-        }
-
-        // falling
-        if(this.falling){
-            this.dy += this.fallSpeed;
-        }
-    }
-    @Override
-    public void update(){
-
-        // update position
-        goToNextPosition();
-        checkTileMapCollision();
-        setPosition(xtemp, ytemp);
-
-        // check if flinching
-        if(this.isFlinching){
-            long elapsedTime = (System.nanoTime() - flinchTimer) / 1_000_000;
-
-            if(elapsedTime > 400){
-                isFlinching = false;
-            }
-        }
-
-        // if hits a wall, change direction to opposite
-        if(this.right  && dx == 0){
-            this.right = false;
-            this.left = true;
-            this.facingRight = false;
-        }
-
-        else if(left && dx == 0){
-            this.left = false;
-            this.right = true;
-            this.facingRight = true;
-        }
-        // update animation
-        this.animation.update();
-    }
-    @Override
-    public void draw(Graphics2D graphics){
-        if(notOnScreen()){
-            return;
-        }
-
-        setMapPosition();
-
-        super.draw(graphics);
-    }
+    
 }

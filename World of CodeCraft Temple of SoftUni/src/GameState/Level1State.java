@@ -1,5 +1,6 @@
 package GameState;
 import Entity.Enemies.Enemy;
+import Entity.Enemies.GhostEnemy;
 import Entity.Enemies.HelmetEnemy;
 import Main.GamePanel;
 import TileMap.*;
@@ -26,11 +27,21 @@ public class Level1State extends GameState{
         this.tileMap.setPosition(0, 0);
         this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
 
+
+        initEnemies();
+
+
+    }
+
+    private void initEnemies() {
         this.enemies = new ArrayList<Enemy>();
-        HelmetEnemy helmetEnemy = new HelmetEnemy(tileMap);
-        helmetEnemy.setPosition(250, 200);
-        this.enemies.add(helmetEnemy);
-        //this.hud = new HUD();
+        Enemy firstEnemy = new HelmetEnemy(tileMap);
+        firstEnemy.setPosition(250, 200);
+        this.enemies.add(firstEnemy);
+
+        Enemy secondEnemy = new GhostEnemy(tileMap);
+        secondEnemy.setPosition(200, 100);
+        this.enemies.add(secondEnemy);
     }
 
     @Override
