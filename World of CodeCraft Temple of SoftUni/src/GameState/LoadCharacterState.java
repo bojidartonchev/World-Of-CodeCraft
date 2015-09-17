@@ -25,20 +25,23 @@ public class LoadCharacterState extends GameState {
     private int currentChoice = 0;
     private Font font;
     private LinkedHashMap<String, String> characters; //change to Character
-    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> names;
     public LoadCharacterState(GameStateManager gsm) {
-        super(gsm);
-        initialize();
-    }
 
+        super(gsm);
+        this.bg = new Background("/Backgrounds/loadCharBg.png", 1);
+        this.font = new Font("LifeCraft", Font.BOLD, 30);
+    }
 
     @Override
     public void initialize() {
-        this.characters = loadCharacters();
-        this.names.addAll(characters.keySet());
-        changeImage(this.characters.get(this.names.get(0)));
-        this.bg = new Background("/Backgrounds/loadCharBg.png", 1);
-        this.font = new Font("LifeCraft", Font.BOLD, 30);
+        initializeCharacters();
+        try {
+            changeImage(this.characters.get(this.names.get(0)));
+        }
+        catch(IndexOutOfBoundsException ex){
+            System.out.println("No Characters found");
+        }
     }
 
     @Override
@@ -67,19 +70,34 @@ public class LoadCharacterState extends GameState {
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_ENTER) {
 
-        } else if (k == KeyEvent.VK_UP) {
+        }
+        else if (k == KeyEvent.VK_UP) {
             currentChoice--;
             if (currentChoice == -1) {
                 currentChoice = names.size()-1;
             }
-
-            changeImage(this.characters.get(this.names.get(currentChoice)));
-        } else if (k == KeyEvent.VK_DOWN) {
+            try{
+                changeImage(this.characters.get(this.names.get(currentChoice)));
+            }
+            catch (IndexOutOfBoundsException ex){
+                //stops exeptions when list in empty
+            }
+        }
+        else if (k == KeyEvent.VK_DOWN) {
             currentChoice++;
             if(currentChoice==names.size()){
                 currentChoice=0;
             }
-            changeImage(this.characters.get(this.names.get(currentChoice)));
+            try{
+                changeImage(this.characters.get(this.names.get(currentChoice)));
+            }
+            catch (IndexOutOfBoundsException ex){
+                //stops exeptions when list in empty
+            }
+
+        }
+        else if (k == KeyEvent.VK_ESCAPE) {
+            this.gsm.setState(GameStateManager.MENU_STATE);
         }
 
     }
@@ -87,6 +105,12 @@ public class LoadCharacterState extends GameState {
     @Override
     public void keyReleased(int k) {
 
+    }
+
+    private void initializeCharacters(){
+        this.characters = loadCharacters();
+        this.names = new ArrayList<>();
+        this.names.addAll(characters.keySet());
     }
 
     private void changeImage(String currentClass) {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GameStateManager {
 
-    public final int MENU_STATE = 0;
+    public static final int MENU_STATE = 0;
     public static final int CREATE_NEW_CHARACTER_STATE = 1;
     public static final int LOAD_CHARACTER_STATE = 2;
     public static final int LEVEL_1_STATE = 3;
@@ -31,6 +31,7 @@ public class GameStateManager {
     public void setState(int state) {
         currentState = state;
         gameStates.get(currentState).initialize();
+
     }
 
     public void update(){
