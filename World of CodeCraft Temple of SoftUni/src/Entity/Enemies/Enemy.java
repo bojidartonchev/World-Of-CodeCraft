@@ -92,7 +92,7 @@ public abstract class Enemy extends MapObject {
         // update position
         goToNextPosition();
         checkTileMapCollision();
-        setPosition(xtemp, ytemp);
+        setPosition(this.getXtemp(), this.getYtemp());
 
         // check if flinching
         if(this.isFlinching()){
@@ -104,25 +104,25 @@ public abstract class Enemy extends MapObject {
         }
 
         // if hits a wall, change direction to opposite
-        if(this.right  && dx == 0){
-            this.right = false;
-            this.left = true;
-            this.facingRight = false;
+        if(this.isRight()  && this.getDx() == 0){
+            this.setRight(false);
+            this.setLeft(true);
+            this.setFacingRight(false);
         }
 
-        else if(left && dx == 0){
-            this.left = false;
-            this.right = true;
-            this.facingRight = true;
+        else if(this.isLeft() && this.getDx() == 0){
+            this.setLeft(false);
+            this.setRight(true);
+            this.setFacingRight(true);
         }
         // update animation
-        this.animation.update();
+        this.getAnimation().update();
     }
 
     protected void setAnimation(long animationDelay) {
-        this.animation = new Animation();
-        this.animation.setFrames(sprites);
-        this.animation.setDelay(animationDelay);
+        this.setAnimation(new Animation());
+        this.getAnimation().setFrames(sprites);
+        this.getAnimation().setDelay(animationDelay);
     }
 
     protected void loadSprites(String path, int numberOfSprites) {
@@ -132,7 +132,7 @@ public abstract class Enemy extends MapObject {
             this.sprites = new BufferedImage[numberOfSprites];
             for (int i = 0; i < sprites.length; i++) {
                 try {
-                    this.sprites[i] = spriteSheet.getSubimage(i * this.width, 0, this.width, this.height);
+                    this.sprites[i] = spriteSheet.getSubimage(i * this.getWidth(), 0, this.getWidth(), this.getHeight());
                 }catch (RasterFormatException e){
                     e.printStackTrace();
                 }
@@ -145,22 +145,22 @@ public abstract class Enemy extends MapObject {
     protected void goToNextPosition() {
 
         // movement
-        if(this.left){
-            this.dx -= this.moveSpeed;
-            if(this.dx < -this.maxSpeed){
-                this.dx = -this.maxSpeed;
+        if(this.isLeft()){
+            this.setDx(this.getDx() - this.getMoveSpeed());
+            if(this.getDx() < -this.getMaxSpeed()){
+                this.setDx(this.getDx() - this.getMaxSpeed());
             }
         }
-        else if(this.right){
-            this.dx += moveSpeed;
-            if(this.dx > this.maxSpeed){
-                this.dx = this.maxSpeed;
+        else if(this.isRight()){
+            this.setDx(this.getDx() + this.getMoveSpeed());
+            if(this.getDx() > this.getMaxSpeed()){
+                this.setDx(this.getMaxSpeed());
             }
         }
 
         // falling
-        if(this.falling){
-            this.dy += this.fallSpeed;
+        if(this.isFalling()){
+            this.setDy(this.getDy() + this.getFallSpeed());
         }
     }
 
