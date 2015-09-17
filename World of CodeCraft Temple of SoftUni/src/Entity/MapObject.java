@@ -9,59 +9,59 @@ import java.awt.*;
 public abstract class MapObject {
 
     // tile stuff
-    protected TileMap tileMap;
-    protected int tileSize;
-    protected double xmap;
-    protected double ymap;
+    private TileMap tileMap;
+    private int tileSize;
+    private double xmap;
+    private double ymap;
 
     // position and vector
-    protected double x;
-    protected double y;
-    protected double dx;
-    protected double dy;
+    private double x;
+    private double y;
+    private double dx;
+    private double dy;
 
     // dimensions
-    protected int width;
-    protected int height;
+    private int width;
+    private int height;
 
     // collision box
-    protected int cwidth;
-    protected int cheight;
+    private int cwidth;
+    private int cheight;
 
     // collision
-    protected int currRow;
-    protected int currCol;
-    protected double xdest;
-    protected double ydest;
-    protected double xtemp;
-    protected double ytemp;
-    protected boolean topLeft;
-    protected boolean topRight;
-    protected boolean bottomLeft;
-    protected boolean bottomRight;
+    private int currRow;
+    private int currCol;
+    private double xdest;
+    private double ydest;
+    private double xtemp;
+    private double ytemp;
+    private boolean topLeft;
+    private boolean topRight;
+    private boolean bottomLeft;
+    private boolean bottomRight;
 
     // animation
-    protected Animation animation;
-    protected int currentAction;
-    protected int previousAction;
-    protected boolean facingRight;
+    private Animation animation;
+    private int currentAction;
+    private int previousAction;
+    private boolean facingRight;
 
     // movement
-    protected boolean left;
-    protected boolean right;
-    protected boolean up;
-    protected boolean down;
-    protected boolean jumping;
-    protected boolean falling;
+    private boolean left;
+    private boolean right;
+    private boolean up;
+    private boolean down;
+    private boolean jumping;
+    private boolean falling;
 
     // movement attributes
-    protected double moveSpeed;
-    protected double maxSpeed;
-    protected double stopSpeed;
-    protected double fallSpeed;
-    protected double maxFallSpeed;
-    protected double jumpStart;
-    protected double stopJumpSpeed;
+    private double moveSpeed;
+    private double maxSpeed;
+    private double stopSpeed;
+    private double fallSpeed;
+    private double maxFallSpeed;
+    private double jumpStart;
+    private double stopJumpSpeed;
 
     // constructor
     public MapObject(TileMap tm) {
@@ -69,10 +69,271 @@ public abstract class MapObject {
         this.tileSize = tm.getTileSize();
     }
 
-    public boolean intersects(MapObject o) {
-        Rectangle r1 = getRectangle();
-        Rectangle r2 = o.getRectangle();
-        return r1.intersects(r2);
+    // Getters And Setters
+
+
+    public int getCheight() {
+        return cheight;
+    }
+
+    public void setCheight(int cheight) {
+        this.cheight = cheight;
+    }
+
+    public TileMap getTileMap() {
+        return this.tileMap;
+    }
+
+    public void setTileMap(TileMap tileMap) {
+        this.tileMap = tileMap;
+    }
+
+    public int getTileSize() {
+        return this.tileSize;
+    }
+
+    public void setTileSize(int tileSize) {
+        this.tileSize = tileSize;
+    }
+
+    public double getXmap() {
+        return this.xmap;
+    }
+
+    public void setXmap(double xmap) {
+        this.xmap = xmap;
+    }
+
+    public double getYmap() {
+        return this.ymap;
+    }
+
+    public void setYmap(double ymap) {
+        this.ymap = ymap;
+    }
+
+    public double getX() {
+        return (int)this.x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return (int)this.y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getDx() {
+        return this.dx;
+    }
+
+    public void setDx(double dx) {
+        this.dx = dx;
+    }
+
+    public double getDy() {
+        return this.dy;
+    }
+
+    public void setDy(double dy) {
+        this.dy = dy;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getCwidth() {
+        return this.cwidth;
+    }
+
+    public void setCwidth(int cwidth) {
+        this.cwidth = cwidth;
+    }
+
+    public double getXdest() {
+        return this.xdest;
+    }
+
+    public void setXdest(double xdest) {
+        this.xdest = xdest;
+    }
+
+    public double getYdest() {
+        return this.ydest;
+    }
+
+    public void setYdest(double ydest) {
+        this.ydest = ydest;
+    }
+
+    public double getXtemp() {
+        return this.xtemp;
+    }
+
+    public void setXtemp(double xtemp) {
+        this.xtemp = xtemp;
+    }
+
+    public double getYtemp() {
+        return this.ytemp;
+    }
+
+    public void setYtemp(double ytemp) {
+        this.ytemp = ytemp;
+    }
+
+    public int getCurrCol() {
+        return this.currCol;
+    }
+
+    public void setCurrCol(int currCol) {
+        this.currCol = currCol;
+    }
+
+    public Animation getAnimation() {
+        return this.animation;
+    }
+
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
+    }
+
+    public int getCurrentAction() {
+        return this.currentAction;
+    }
+
+    public void setCurrentAction(int currentAction) {
+        this.currentAction = currentAction;
+    }
+
+    public boolean isFacingRight() {
+        return facingRight;
+    }
+
+    public void setFacingRight(boolean facingRight) {
+        this.facingRight = facingRight;
+    }
+
+    public boolean isLeft() {
+        return left;
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
+    }
+
+    public boolean isRight() {
+        return right;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
+    }
+
+    public boolean isUp() {
+        return up;
+    }
+
+    public void setUp(boolean up) {
+        this.up = up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+
+    public boolean isJumping() {
+        return jumping;
+    }
+
+    public void setJumping(boolean jumping) {
+        this.jumping = jumping;
+    }
+
+    public boolean isFalling() {
+        return falling;
+    }
+
+    public void setFalling(boolean falling) {
+        this.falling = falling;
+    }
+
+    public double getMoveSpeed() {
+        return this.moveSpeed;
+    }
+
+    public void setMoveSpeed(double moveSpeed) {
+        this.moveSpeed = moveSpeed;
+    }
+
+    public double getMaxSpeed() {
+        return this.maxSpeed;
+    }
+
+    public void setMaxSpeed(double maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public double getStopSpeed() {
+        return this.stopSpeed;
+    }
+
+    public void setStopSpeed(double stopSpeed) {
+        this.stopSpeed = stopSpeed;
+    }
+
+    public double getFallSpeed() {
+        return this.fallSpeed;
+    }
+
+    public void setFallSpeed(double fallSpeed) {
+        this.fallSpeed = fallSpeed;
+    }
+
+    public double getMaxFallSpeed() {
+        return this.maxFallSpeed;
+    }
+
+    public void setMaxFallSpeed(double maxFallSpeed) {
+        this.maxFallSpeed = maxFallSpeed;
+    }
+
+    public double getJumpStart() {
+        return this.jumpStart;
+    }
+
+    public void setJumpStart(double jumpStart) {
+        this.jumpStart = jumpStart;
+    }
+
+    public double getStopJumpSpeed() {
+        return this.stopJumpSpeed;
+    }
+
+    public void setStopJumpSpeed(double stopJumpSpeed) {
+        this.stopJumpSpeed = stopJumpSpeed;
     }
 
     public Rectangle getRectangle() {
@@ -82,6 +343,12 @@ public abstract class MapObject {
                 this.cwidth,
                 this.cheight
         );
+    }
+
+    public boolean intersects(MapObject o) {
+        Rectangle r1 = getRectangle();
+        Rectangle r2 = o.getRectangle();
+        return r1.intersects(r2);
     }
 
     public void calculateCorners(double x, double y) {
@@ -164,13 +431,6 @@ public abstract class MapObject {
 
     }
 
-    public int getx() { return (int)this.x; }
-    public int gety() { return (int)this.y; }
-    public int getWidth() { return this.width; }
-    public int getHeight() { return this.height; }
-    public int getCWidth() { return this.cwidth; }
-    public int getCHeight() { return this.cheight; }
-
     public void setPosition(double x, double y) {
         this.x = x;
         this.y = y;
@@ -184,12 +444,6 @@ public abstract class MapObject {
         this.xmap = this.tileMap.getx();
         this.ymap = this.tileMap.gety();
     }
-
-    public void setLeft(boolean b) { this.left = b; }
-    public void setRight(boolean b) { this.right = b; }
-    public void setUp(boolean b) { this.up = b; }
-    public void setDown(boolean b) { this.down = b; }
-    public void setJumping(boolean b) { this.jumping = b; }
 
     public boolean notOnScreen() {
         return this.x + this.xmap + this.width < 0 ||

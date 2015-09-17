@@ -65,11 +65,11 @@ public abstract class Character extends MapObject implements ICharacter{
     }
 
     private void init(){
-        this.width = 30;
-        this.height = 30;
-        this.cwidth = 20;
-        this.cheight = 20;
-        this.facingRight = true;
+        this.setWidth(30);
+        this.setHeight(30);
+        this.setCwidth(20);
+        this.setCheight(20);
+        this.setFacingRight(true);
 
         // load sprites // vse oshte nqmame gif za characterite
         try {
@@ -90,18 +90,18 @@ public abstract class Character extends MapObject implements ICharacter{
 
                     if(i != this.ATTACKING) {
                         bi[j] = spritesheet.getSubimage(
-                                j * this.width,
-                                i * this.height,
-                                this.width,
-                                this.height
+                                j * this.getWidth(),
+                                i * this.getHeight(),
+                                this.getWidth(),
+                                this.getHeight()
                         );
                     }
                     else {
                         bi[j] = spritesheet.getSubimage(
-                                j * this.width * 2,
-                                i * this.height,
-                                this.width * 2,
-                                this.height
+                                j * this.getWidth() * 2,
+                                i * this.getHeight(),
+                                this.getWidth() * 2,
+                                this.getHeight()
                         );
                     }
 
@@ -114,10 +114,10 @@ public abstract class Character extends MapObject implements ICharacter{
         catch(Exception e) {
             e.printStackTrace();
         }
-        this.animation = new Animation();
-        this.currentAction = this.IDLE;
-        this.animation.setFrames(this.sprites.get(this.IDLE));
-        this.animation.setDelay(400);
+        this.setAnimation(new Animation());
+        this.setCurrentAction(this.IDLE);
+        this.getAnimation().setFrames(this.sprites.get(this.IDLE));
+        this.getAnimation().setDelay(400);
     }
 
     public int getMaxHealth() {
@@ -155,29 +155,29 @@ public abstract class Character extends MapObject implements ICharacter{
 
 
     public void checkAttack(ArrayList<Enemy> enemies) {
-        // loop through enemies
+        // Loop through enemies
         for (int i = 0; i < enemies.size(); i++) {
 
             Enemy e = enemies.get(i);
 
-            // scratch attack
+            // Attack
             if (this.attacking) {
-                if (this.facingRight) {
+                if (this.isFacingRight()) {
 
                     if (
-                            e.getx() > this.x &&
-                                    e.getx() <= this.x + this.attackRange &&
-                                    e.gety() > this.y - this.height / 2 &&
-                                    e.gety() < this.y + this.height / 2
+                            e.getX() > this.getX() &&
+                                    e.getX() <= this.getX() + this.attackRange &&
+                                    e.getY() > this.getY() - this.getHeight() / 2 &&
+                                    e.getY() < this.getY() + this.getHeight() / 2
                             ) {
                         e.hit(this.attackDamage);
                     }
                 }else {
                     if(
-                            e.getx() < this.x &&
-                                    e.getx() > this.x - this.attackRange &&
-                                    e.gety() > this.y - this.height / 2 &&
-                                    e.gety() < this.y + this.height / 2
+                            e.getX() < this.getX() &&
+                                    e.getX() > this.getX() - this.attackRange &&
+                                    e.getY() > this.getY() - this.getHeight() / 2 &&
+                                    e.getY() < this.getY() + this.getHeight() / 2
                             ){
                         e.hit(this.attackDamage);
                     }
@@ -211,56 +211,56 @@ public abstract class Character extends MapObject implements ICharacter{
     private void getNextPosition() {
 
         // movement
-        if(this.left) {
-            this.dx -= this.moveSpeed;
-            if(this.dx < -this.maxSpeed) {
-                this.dx = -this.maxSpeed;
+        if(this.isLeft()) {
+            this.setDx(this.getDx() - this.getMoveSpeed());
+            if(this.getDx() < -this.getMaxSpeed()) {
+                this.setDx(-this.getMaxSpeed());
             }
         }
-        else if(this.right) {
-            this.dx += this.moveSpeed;
-            if(this.dx > this.maxSpeed) {
-                this.dx = this.maxSpeed;
+        else if(this.isRight()) {
+            this.setDx(this.getDx() + this.getMoveSpeed());
+            if(this.getDx() > this.getMaxSpeed()) {
+                this.setDx(this.getMaxSpeed());
             }
         }
         else {
-            if(this.dx > 0) {
-                this.dx -= this.stopSpeed;
-                if(this.dx < 0) {
-                    this.dx = 0;
+            if(this.getDx() > 0) {
+                this.setDx(this.getDx() - this.getStopSpeed());
+                if(this.getDx() < 0) {
+                    this.setDx(0);
                 }
             }
-            else if(this.dx < 0) {
-                this.dx += this.stopSpeed;
-                if(this.dx > 0) {
-                    this.dx = 0;
+            else if(this.getDx() < 0) {
+                this.setDx(this.getDx() + this.getStopSpeed());
+                if(this.getDx() > 0) {
+                    this.setDx(0);
                 }
             }
         }
 
         // cannot move while attacking, except in air
         if(
-                (this.currentAction == this.ATTACKING || this.currentAction == this.CASTING) &&
-                        !(this.jumping || this.falling)) {
-            this.dx = 0;
+                (this.getCurrentAction() == this.ATTACKING || this.getCurrentAction() == this.CASTING) &&
+                        !(this.isJumping() || this.isFalling())) {
+            this.setDx(0);
         }
 
         // jumping
-        if(this.jumping && !this.falling) {
-            this.dy = this.jumpStart;
-            this.falling = true;
+        if(this.isJumping() && !this.isFalling()) {
+            this.setDy(this.getJumpStart());
+            this.setFalling(true);
         }
 
         // falling
-        if(this.falling) {
+        if(this.isFalling()) {
 
-            if(this.dy > 0 && this.gliding) this.dy += this.fallSpeed * 0.1;
-            else this.dy += this.fallSpeed;
+            if(this.getDy() > 0 && this.gliding) this.setDy(this.getDy() + this.getFallSpeed() * 0.1);
+            else this.setDy(this.getDy() + this.getFallSpeed());
 
-            if(this.dy > 0) this.jumping = false;
-            if(this.dy < 0 && !this.jumping) this.dy += this.stopJumpSpeed;
+            if(this.getDy() > 0) this.setJumping(false);
+            if(this.getDy() < 0 && !this.isJumping()) this.setDy(this.getDy() + this.getStopJumpSpeed());;
 
-            if(this.dy > this.maxFallSpeed) this.dy = this.maxFallSpeed;
+            if(this.getDy() > this.getMaxFallSpeed()) this.setDy(this.getDy() + this.getMaxFallSpeed());
 
         }
 
@@ -271,23 +271,23 @@ public abstract class Character extends MapObject implements ICharacter{
         // update position
         getNextPosition();
         checkTileMapCollision();
-        setPosition(this.xtemp, this.ytemp);
+        setPosition(this.getXtemp(), this.getYtemp());
 
         // check attack has stopped
-        if(this.currentAction == this.ATTACKING){
-            if(this.animation.hasPlayedOnce()) this.attacking = false;
-        }if(this.currentAction == this.CASTING){
-            if(this.animation.hasPlayedOnce()) this.casting = false;
+        if(this.getCurrentAction() == this.ATTACKING){
+            if(this.getAnimation().hasPlayedOnce()) this.attacking = false;
+        }if(this.getCurrentAction() == this.CASTING){
+            if(this.getAnimation().hasPlayedOnce()) this.casting = false;
         }
 
         // spell attack
         this.mana += 10;
         if(this.mana > this.maxMana) this.mana = this.maxMana;
-        if(this.casting && this.currentAction != this.CASTING){
+        if(this.casting && this.getCurrentAction() != this.CASTING){
             if(this.mana > this.spell.getManaCost()){
                 this.mana -= this.spell.getManaCost();
-                Spell temporarySpell = new Spell(this.tileMap, this.facingRight);
-                temporarySpell.setPosition(this.x, this.y);
+                Spell temporarySpell = new Spell(this.getTileMap(), this.isFacingRight());
+                temporarySpell.setPosition(this.getX(), this.getY());
                 this.spells.add(temporarySpell);
             }
         }
@@ -311,68 +311,68 @@ public abstract class Character extends MapObject implements ICharacter{
 
         // set animation
         if(this.attacking) {
-            if(this.currentAction != this.ATTACKING) {
-                this.currentAction = this.ATTACKING;
-                this.animation.setFrames(this.sprites.get(this.ATTACKING));
-                this.animation.setDelay(50);
-                this.width = 60;
+            if(this.getCurrentAction() != this.ATTACKING) {
+                this.setCurrentAction(this.ATTACKING);
+                this.getAnimation().setFrames(this.sprites.get(this.ATTACKING));
+                this.getAnimation().setDelay(50);
+                this.setWidth(60);
             }
         }
         else if(this.casting) {
-            if(this.currentAction != this.CASTING) {
-                this.currentAction = this.CASTING;
-                this.animation.setFrames(sprites.get(this.CASTING));
-                this.animation.setDelay(100);
-                this.width = 30;
+            if(this.getCurrentAction() != this.CASTING) {
+                this.setCurrentAction(this.CASTING);
+                this.getAnimation().setFrames(sprites.get(this.CASTING));
+                this.getAnimation().setDelay(100);
+                this.setWidth(30);
             }
         }
-        else if(this.dy > 0) {
+        else if(this.getDy() > 0) {
             if(this.gliding) {
-                if(this.currentAction != this.GLIDING) {
-                    this.currentAction = this.GLIDING;
-                    this.animation.setFrames(sprites.get(this.GLIDING));
-                    this.animation.setDelay(100);
-                    this.width = 30;
+                if(this.getCurrentAction() != this.GLIDING) {
+                    this.setCurrentAction(this.GLIDING);
+                    this.getAnimation().setFrames(sprites.get(this.GLIDING));
+                    this.getAnimation().setDelay(100);
+                    this.setWidth(30);
                 }
             }
-            else if(this.currentAction != this.FALLING) {
-                this.currentAction = this.FALLING;
-                this.animation.setFrames(this.sprites.get(this.FALLING));
-                this.animation.setDelay(100);
-                this.width = 30;
+            else if(this.getCurrentAction() != this.FALLING) {
+                this.setCurrentAction(this.FALLING);
+                this.getAnimation().setFrames(this.sprites.get(this.FALLING));
+                this.getAnimation().setDelay(100);
+                this.setWidth(30);
             }
         }
-        else if(this.dy < 0) {
-            if(this.currentAction != this.JUMPING) {
-                this.currentAction = this.JUMPING;
-                this.animation.setFrames(this.sprites.get(this.JUMPING));
-                this.animation.setDelay(-1);
-                this.width = 30;
+        else if(this.getDy() < 0) {
+            if(this.getCurrentAction() != this.JUMPING) {
+                this.setCurrentAction(this.JUMPING);
+                this.getAnimation().setFrames(this.sprites.get(this.JUMPING));
+                this.getAnimation().setDelay(-1);
+                this.setWidth(30);
             }
         }
-        else if(this.left || this.right) {
-            if(this.currentAction != this.WALKING) {
-                this.currentAction = this.WALKING;
-                this.animation.setFrames(this.sprites.get(this.WALKING));
-                this.animation.setDelay(40);
-                this.width = 30;
+        else if(this.isLeft() || this.isRight()) {
+            if(this.getCurrentAction() != this.WALKING) {
+                this.setCurrentAction(this.WALKING);
+                this.getAnimation().setFrames(this.sprites.get(this.WALKING));
+                this.getAnimation().setDelay(40);
+                this.setWidth(30);
             }
         }
         else {
-            if(this.currentAction != this.IDLE) {
-                this.currentAction = this.IDLE;
-                this.animation.setFrames(this.sprites.get(this.IDLE));
-                this.animation.setDelay(400);
-                this.width = 30;
+            if(this.getCurrentAction() != this.IDLE) {
+                this.setCurrentAction(this.IDLE);
+                this.getAnimation().setFrames(this.sprites.get(this.IDLE));
+                this.getAnimation().setDelay(400);
+                this.setWidth(30);
             }
         }
 
-        this.animation.update();
+        this.getAnimation().update();
 
         // set direction
-        if(this.currentAction != this.ATTACKING && this.currentAction != this.CASTING) {
-            if(this.right) this.facingRight = true;
-            if(this.left) this.facingRight = false;
+        if(this.getCurrentAction() != this.ATTACKING && this.getCurrentAction() != this.CASTING) {
+            if(this.isRight()) this.setFacingRight(true);
+            if(this.isLeft()) this.setFacingRight(false);
         }
 
     }
