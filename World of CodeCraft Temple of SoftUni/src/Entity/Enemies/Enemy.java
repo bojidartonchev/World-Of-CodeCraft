@@ -148,7 +148,7 @@ public abstract class Enemy extends MapObject {
         if(this.isLeft()){
             this.setDx(this.getDx() - this.getMoveSpeed());
             if(this.getDx() < -this.getMaxSpeed()){
-                this.setDx(this.getDx() - this.getMaxSpeed());
+                this.setDx(- this.getMaxSpeed());
             }
         }
         else if(this.isRight()){
