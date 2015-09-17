@@ -25,7 +25,7 @@ public class LoadCharacterState extends GameState {
     private int currentChoice = 0;
     private Font font;
     private LinkedHashMap<String, String> characters; //change to Character
-    private ArrayList<String> names;
+    private ArrayList<String> names = new ArrayList<>();
     public LoadCharacterState(GameStateManager gsm) {
 
         super(gsm);
