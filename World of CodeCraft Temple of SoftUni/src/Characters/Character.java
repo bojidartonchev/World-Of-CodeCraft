@@ -61,6 +61,7 @@ public abstract class Character extends MapObject implements ICharacter{
         this.setState(DEFAULTLEVEL);
         this.name = name;
         this.health = this.maxHealth = maxHealth;
+        this.init();
         //this.spells = spells;
         //this.spell = spell;
     }
@@ -70,6 +71,7 @@ public abstract class Character extends MapObject implements ICharacter{
         this.setState(level);
         this.name = name;
         this.health = this.maxHealth = maxHealth;
+        this.init();
         //this.spells = spells;
         //this.spell = spell;
     }
@@ -91,7 +93,7 @@ public abstract class Character extends MapObject implements ICharacter{
                     )
             );
 
-            sprites = new ArrayList<BufferedImage[]>();
+            this.sprites = new ArrayList<BufferedImage[]>();
             for(int i = 0; i < 7; i++) {
 
                 BufferedImage[] bi =
@@ -195,13 +197,13 @@ public abstract class Character extends MapObject implements ICharacter{
                 }
             }
             // spells
-            for (int j = 0; j < this.spells.size(); j++) {
-                if(this.spells.get(j).intersects(e)){
-                    e.hit(this.spell.getDamage());
-                    this.spells.get(j).setHit();
-                    break;
-                }
-            }
+           // for (int j = 0; j < this.spells.size(); j++) {
+           //     if(this.spells.get(j).intersects(e)){
+           //         e.hit(this.spell.getDamage());
+           //         this.spells.get(j).setHit();
+           //         break;
+           //     }
+           // }
             // check for enemy collision
             if(intersects(e)){
                 this.hit(e.getDamage());
@@ -304,13 +306,13 @@ public abstract class Character extends MapObject implements ICharacter{
         }
 
         // update spells
-        for (int i = 0; i < this.spells.size(); i++) {
-            this.spells.get(i).update();
-            if(this.spells.get(i).shouldRemove()){
-                this.spells.remove(i);
-                i--;
-            }
-        }
+       // for (int i = 0; i < this.spells.size(); i++) {
+       //     this.spells.get(i).update();
+       //     if(this.spells.get(i).shouldRemove()){
+       //         this.spells.remove(i);
+       //         i--;
+       //     }
+       // }
 
         // check done flinching
         if(this.flinching){
@@ -392,9 +394,9 @@ public abstract class Character extends MapObject implements ICharacter{
 
         setMapPosition();
         // draw spells
-        for (int i = 0; i < this.spells.size(); i++) {
-            this.spells.get(i).draw(g);
-        }
+        //for (int i = 0; i < this.spells.size(); i++) {
+        //    this.spells.get(i).draw(g);
+        //}
         // draw player
         if(this.flinching) {
             long elapsed =

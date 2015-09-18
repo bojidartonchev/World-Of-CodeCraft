@@ -4,6 +4,7 @@ package GameState;
 import Characters.Character;
 import Characters.Mage;
 import Characters.Rogue;
+import Main.Game;
 import Main.GamePanel;
 import TileMap.Background;
 
@@ -182,8 +183,11 @@ public class LoadCharacterState extends GameState {
     }
 
     private void select() {
-        System.out.println(this.currentChar.getState());
+        super.setCharacter(this.currentChar);
+
         this.gsm.setState(this.currentChar.getState());
+
     }
+
 
 }

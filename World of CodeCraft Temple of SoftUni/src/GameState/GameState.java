@@ -1,11 +1,12 @@
 package GameState;
 
+import Characters.Character;
 import TileMap.TileMap;
 
 public abstract class GameState {
     private TileMap tileMap;
     protected GameStateManager gsm;
-
+    private Character character;
     public GameState(GameStateManager gsm) {
         this.gsm = gsm;
     }
@@ -20,5 +21,13 @@ public abstract class GameState {
     }
     public void setTileMap(TileMap value){
         this.tileMap = value;
+    }
+
+    public Character getCharacter() {
+        return this.character;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 }
