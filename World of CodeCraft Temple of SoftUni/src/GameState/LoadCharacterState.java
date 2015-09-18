@@ -40,8 +40,9 @@ public class LoadCharacterState extends GameState {
     @Override
     public void initialize() {
         initializeCharacters();
+        //this.currentChoice=0;
         try {
-            this.currentChar = this.characters.get(this.names.get(0));
+            this.currentChar = this.characters.get(this.names.get(this.currentChoice));
             changeImage(this.currentChar);
         }
         catch(IndexOutOfBoundsException ex){
@@ -156,23 +157,24 @@ public class LoadCharacterState extends GameState {
         ArrayList<String> data = new ArrayList<>();
         Character currentChar = null;
         try(BufferedReader br = new BufferedReader(new FileReader(path))) {
-
             String line = br.readLine();
-            data.add(line);
-
+            while(line!=null){
+                data.add(line);
+                line = br.readLine();
+            }
         }
         catch(IOException ex){
             System.out.println("Error");
         }
         //check for class and name here::::::;
-        String levelData = data.get(0).substring(data.get(0).indexOf("Level"));
+        String levelData = data.get(2);
         int level =Integer.parseInt(levelData.substring(levelData.indexOf(":")+1));
         //change to Character
-        if(data.get(0).contains("Mage")){
+        if(data.get(1).contains("Mage")){
 
             currentChar= new Mage("magename",this.gsm.gameStates.get(GameStateManager.LEVEL_1_STATE).getTileMap(),53,level+1);
         }
-        else if(data.get(0).contains("Rogue")){
+        else if(data.get(1).contains("Rogue")){
             currentChar= new Rogue("roguename",this.gsm.gameStates.get(GameStateManager.LEVEL_1_STATE).getTileMap(),53,level+1);
         }
 
