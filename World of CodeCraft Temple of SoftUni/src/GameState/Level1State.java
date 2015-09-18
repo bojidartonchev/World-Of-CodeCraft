@@ -26,7 +26,7 @@ public class Level1State extends GameState{
         this.tileMap.loadMap("/Maps/level1-1.map");
         this.tileMap.setPosition(0, 0);
         this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
-
+        super.setTileMap(this.tileMap);
 
         initEnemies();
 
@@ -74,4 +74,5 @@ public class Level1State extends GameState{
     public void keyReleased(int k) {
 
     }
+
 }

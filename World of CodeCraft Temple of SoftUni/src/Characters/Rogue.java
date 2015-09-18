@@ -11,9 +11,13 @@ public class Rogue extends Character{
     private static final int DEFAULTROGUEAGILITY = 512; //TODO set agility
     private static final int DEFAULTROGUEHEALTH = 6;
 
-    public Rogue(String name, TileMap tileMap, int maxHealth, ArrayList<Spell> spells, Spell spell) {
-        super(name, tileMap, maxHealth, spells, spell);
-        this.setAgility(DEFAULTROGUEAGILITY);
+    public Rogue(String name, TileMap tileMap, int maxHealth) {
+        super(name, tileMap, maxHealth);
+        this.setAgility(this.DEFAULTROGUEAGILITY);
+    }
+    public Rogue(String name, TileMap tileMap, int maxHealth,int level) {
+        super(name, tileMap, maxHealth,level);
+        this.setAgility(this.DEFAULTROGUEAGILITY);
     }
 
     public void setAgility(int value){

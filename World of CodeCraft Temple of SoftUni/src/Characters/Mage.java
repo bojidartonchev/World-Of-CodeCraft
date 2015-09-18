@@ -10,8 +10,12 @@ public class Mage extends Character {
     private int intellect;
     private static final int DEFAULTMAGEINTELLECT = 512; //TODO set intellect
 
-    public Mage(String name, TileMap tileMap, int maxHealth, ArrayList<Spell> spells, Spell spell) {
-        super(name, tileMap, maxHealth, spells, spell);
+    public Mage(String name, TileMap tileMap, int maxHealth) {
+        super(name, tileMap, maxHealth);
+        this.setIntellect(this.DEFAULTMAGEINTELLECT);
+    }
+    public Mage(String name, TileMap tileMap, int maxHealth,int level) {
+        super(name, tileMap, maxHealth,level);
         this.setIntellect(this.DEFAULTMAGEINTELLECT);
     }
 

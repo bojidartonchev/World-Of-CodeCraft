@@ -2,10 +2,13 @@ package GameState;
 
 
 import Characters.Character;
+import Characters.Mage;
+import Characters.Rogue;
 import Main.GamePanel;
 import TileMap.Background;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -22,9 +25,10 @@ public class LoadCharacterState extends GameState {
 
     private Background bg;
     private BufferedImage image;
+    private Character currentChar;
     private int currentChoice = 0;
     private Font font;
-    private LinkedHashMap<String, String> characters; //change to Character
+    private LinkedHashMap<String, Character> characters; //change to Character
     private ArrayList<String> names = new ArrayList<>();
     public LoadCharacterState(GameStateManager gsm) {
 
@@ -37,7 +41,8 @@ public class LoadCharacterState extends GameState {
     public void initialize() {
         initializeCharacters();
         try {
-            changeImage(this.characters.get(this.names.get(0)));
+            this.currentChar = this.characters.get(this.names.get(0));
+            changeImage(this.currentChar);
         }
         catch(IndexOutOfBoundsException ex){
             System.out.println("No Characters found");
@@ -69,7 +74,7 @@ public class LoadCharacterState extends GameState {
     @Override
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_ENTER) {
-
+            this.select();
         }
         else if (k == KeyEvent.VK_UP) {
             currentChoice--;
@@ -77,7 +82,8 @@ public class LoadCharacterState extends GameState {
                 currentChoice = names.size()-1;
             }
             try{
-                changeImage(this.characters.get(this.names.get(currentChoice)));
+                this.currentChar = this.characters.get(this.names.get(currentChoice));
+                changeImage(this.currentChar);
             }
             catch (IndexOutOfBoundsException ex){
                 //stops exeptions when list in empty
@@ -89,7 +95,8 @@ public class LoadCharacterState extends GameState {
                 currentChoice=0;
             }
             try{
-                changeImage(this.characters.get(this.names.get(currentChoice)));
+                this.currentChar = this.characters.get(this.names.get(currentChoice));
+                changeImage(this.currentChar);
             }
             catch (IndexOutOfBoundsException ex){
                 //stops exeptions when list in empty
@@ -113,7 +120,9 @@ public class LoadCharacterState extends GameState {
         this.names.addAll(characters.keySet());
     }
 
-    private void changeImage(String currentClass) {
+    private void changeImage(Character character) {
+        String currentClass = character.getClass().getTypeName().toString();
+        currentClass = currentClass.substring(currentClass.indexOf(".")+1,currentClass.length());
         try {
             image = ImageIO.read(new File("Resources\\CharacterImages\\"+currentClass.toLowerCase()+"_right.png"));
         } catch (IOException ex) {
@@ -121,9 +130,9 @@ public class LoadCharacterState extends GameState {
         }
     }
 
-    private LinkedHashMap<String, String> loadCharacters(){//change to Character
+    private LinkedHashMap<String, Character> loadCharacters(){//change to Character
         ArrayList<String> paths = new ArrayList<>();
-        LinkedHashMap<String,String> characters = new LinkedHashMap<>();
+        LinkedHashMap<String,Character> characters = new LinkedHashMap<>();
         String path = System.getProperty("user.home");
         path+="\\World of CodeCraft Data";
         try {
@@ -143,9 +152,9 @@ public class LoadCharacterState extends GameState {
         return characters;
     }
 
-    private String generateCharacter(String path){//change to Character
+    private Character generateCharacter(String path){//change to Character
         ArrayList<String> data = new ArrayList<>();
-        Character currentChar;
+        Character currentChar = null;
         try(BufferedReader br = new BufferedReader(new FileReader(path))) {
 
             String line = br.readLine();
@@ -156,15 +165,23 @@ public class LoadCharacterState extends GameState {
             System.out.println("Error");
         }
         //check for class and name here::::::;
-
+        String levelData = data.get(0).substring(data.get(0).indexOf("Level"));
+        int level =Integer.parseInt(levelData.substring(levelData.indexOf(":")+1));
         //change to Character
         if(data.get(0).contains("Mage")){
-            return "Mage";
+
+            currentChar= new Mage("magename",this.gsm.gameStates.get(GameStateManager.LEVEL_1_STATE).getTileMap(),53,level+1);
         }
         else if(data.get(0).contains("Rogue")){
-            return "Rogue";
+            currentChar= new Rogue("roguename",this.gsm.gameStates.get(GameStateManager.LEVEL_1_STATE).getTileMap(),53,level+1);
         }
-    return "Paladin";
+
+    return currentChar;
+    }
+
+    private void select() {
+        System.out.println(this.currentChar.getState());
+        this.gsm.setState(this.currentChar.getState());
     }
 
 }

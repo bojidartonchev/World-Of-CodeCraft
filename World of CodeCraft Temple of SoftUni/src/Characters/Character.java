@@ -23,7 +23,7 @@ public abstract class Character extends MapObject implements ICharacter{
     private boolean flinching;
     private long flinchTimer;
     private String name;
-    private int level;
+    private int currentGameState;
 
     // Casting
     private boolean casting;
@@ -52,17 +52,28 @@ public abstract class Character extends MapObject implements ICharacter{
     private static final int GLIDING = 4;
     private static final int CASTING = 5;
     private static final int ATTACKING = 6;
+    private static final int DEFAULTLEVEL = 1;
 
 
 
-
-    protected Character(String name, TileMap tileMap, int maxHealth, ArrayList<Spell> spells, Spell spell){
+    protected Character(String name, TileMap tileMap, int maxHealth){
         super(tileMap);
+        this.setState(DEFAULTLEVEL);
         this.name = name;
         this.health = this.maxHealth = maxHealth;
-        this.spells = spells;
-        this.spell = spell;
+        //this.spells = spells;
+        //this.spell = spell;
     }
+
+    protected Character(String name, TileMap tileMap, int maxHealth, int level){
+        super(tileMap);
+        this.setState(level);
+        this.name = name;
+        this.health = this.maxHealth = maxHealth;
+        //this.spells = spells;
+        //this.spell = spell;
+    }
+
 
     private void init(){
         this.setWidth(30);
@@ -132,16 +143,16 @@ public abstract class Character extends MapObject implements ICharacter{
     public int getHealth() {
         return this.health;
     }
-    public int getLevel() {
-        return this.level;
+    public int getState() {
+        return this.currentGameState;
     }
     public String getName() {
         return this.name;
     }
 
 
-    public void setLevel(int value) {
-        this.level = value;
+    public void setState(int value) {
+        this.currentGameState = value;
     }
     public void setCasting() {
         this.casting = true;

@@ -1,7 +1,9 @@
 package GameState;
 
-public abstract class GameState {
+import TileMap.TileMap;
 
+public abstract class GameState {
+    private TileMap tileMap;
     protected GameStateManager gsm;
 
     public GameState(GameStateManager gsm) {
@@ -13,4 +15,10 @@ public abstract class GameState {
     public abstract void update();
     public abstract void keyPressed(int k);
     public abstract void keyReleased(int k);
+    public TileMap getTileMap(){
+        return this.tileMap;
+    }
+    public void setTileMap(TileMap value){
+        this.tileMap = value;
+    }
 }

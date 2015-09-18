@@ -17,7 +17,6 @@ public class MenuState extends GameState {
     private String[] options = {
             "Create New Character",
             "Load Character",
-            "Start",
             "Quit"
     };
 
@@ -77,10 +76,7 @@ public class MenuState extends GameState {
         if(currentChoice == 1){
             this.gsm.setState(GameStateManager.LOAD_CHARACTER_STATE);
         }
-        if(currentChoice==2){
-            this.gsm.setState(GameStateManager.LEVEL_1_STATE);
-        }
-        if(currentChoice == 3){
+        if(currentChoice == 2){
            //quit
             System.exit(0);
         }
