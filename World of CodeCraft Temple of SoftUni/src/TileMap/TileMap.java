@@ -98,6 +98,11 @@ public class TileMap {
             width = numCols * this.tileSize;
             height = numRows * this.tileSize;
 
+            xmin = GamePanel.WIDTH - width;
+            xmax = 0;
+            ymin = GamePanel.HEIGHT - height;
+            ymax = 0;
+
             String delims = "\\s+";
             for(int row = 0; row < numRows; row++) {
                 String line = br.readLine();
