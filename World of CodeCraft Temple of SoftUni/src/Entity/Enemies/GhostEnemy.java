@@ -39,7 +39,7 @@ public class GhostEnemy extends  Enemy{
     protected void setAnimation(long animationDelay) {
         super.setAnimation(animationDelay);
 
-        this.setLeft(true);
-        this.setFacingRight(false);
+        this.setRight(true);
+        this.setFacingRight(true);
     }
 }

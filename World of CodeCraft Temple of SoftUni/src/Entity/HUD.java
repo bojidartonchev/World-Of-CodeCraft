@@ -4,7 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import Characters.*;
+
 import Characters.Character;
 
 public class HUD {
@@ -13,18 +13,18 @@ public class HUD {
     private final int Y = 5;
     private final int X_PLAYER_HEALTH = 25;
     private final int Y_PLAYER_HEALTH  = 20;
-    private final int X_PLAYER_FIRE_LEVEL = 20;
-    private final int Y_PLAYER_FIRE_LEVEL  = 20;
+    private final int X_PLAYER_FIRE_LEVEL = 30;
+    private final int Y_PLAYER_FIRE_LEVEL  = 41;
     // data
-    private Character character;
+    private Character player;
     private BufferedImage image;
     private Font font;
 
     private int fontSize = 14;
 
-    public HUD(Character character){
+    public HUD(Character player){
 
-        this.character = character;
+        this.player = player;
 
         loadImage();
 
@@ -44,8 +44,8 @@ public class HUD {
         graphics.setFont(this.font);
         graphics.setColor(Color.WHITE);
 
-        String playerHealthStatus = String.format("%d/%d", this.character.getHealth(), this.character.getMaxHealth());
-        String playerManaStatus =  String.format("%d/%d", this.character.getMana(), this.character.getMaxMana());
+        String playerHealthStatus = String.format("%d/%d", this.player.getHealth(), this.player.getMaxHealth());
+        String playerManaStatus =  String.format("%d/%d", this.player.getMana(), this.player.getMaxMana());
 
         graphics.drawString(playerHealthStatus, X_PLAYER_HEALTH, Y_PLAYER_HEALTH);
         graphics.drawString(playerManaStatus, X_PLAYER_FIRE_LEVEL, Y_PLAYER_FIRE_LEVEL);

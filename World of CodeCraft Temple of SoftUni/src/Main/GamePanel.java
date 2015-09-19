@@ -105,7 +105,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     }
 
     public void keyReleased(KeyEvent key) {
-        //gsm.keyReleased(key.getKeyCode());  // todo: return key released, but throws null pointed exception
+        gsm.keyReleased(key.getKeyCode());
+
     }
 
 }

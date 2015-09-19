@@ -4,6 +4,7 @@ import Characters.Character;
 import Entity.Enemies.Enemy;
 import Entity.Enemies.GhostEnemy;
 import Entity.Enemies.HelmetEnemy;
+import Entity.HUD;
 import Main.Game;
 import Main.GamePanel;
 import TileMap.*;
@@ -20,7 +21,7 @@ public class Level1State extends GameState{
     private Character player;
     private boolean isInitialize = false;
 
-    //private HUD hud;
+    private HUD hud;
     public Level1State(GameStateManager gsm) {
         super(gsm);
         initialize();
@@ -30,6 +31,7 @@ public class Level1State extends GameState{
     @Override
     public void initialize() {
 
+        // TODO: Player is null
         this.player = this.gsm.gameStates.get(GameStateManager.LOAD_CHARACTER_STATE).getCharacter();
 
         this.tileMap = new TileMap(30);
@@ -39,8 +41,6 @@ public class Level1State extends GameState{
         this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
         super.setTileMap(this.tileMap);
         initEnemies();
-
-
     }
 
     private void initEnemies() {
@@ -58,7 +58,7 @@ public class Level1State extends GameState{
     @Override
     public void update() {
         // update enemies
-       this.enemies.stream().forEach(enemy-> enemy.update());
+        //this.enemies.stream().forEach(enemy-> enemy.update());
 
         // update player
         this.player.update();
@@ -103,6 +103,8 @@ public class Level1State extends GameState{
 
         if(!isInitialize){
             this.player.setPosition(200, 200);
+            this.hud = new HUD(this.player);
+
             isInitialize = true;
         }
 
@@ -129,7 +131,7 @@ public class Level1State extends GameState{
         //}
 //
         //// draw HUD
-        //hud.draw(g);
+        this.hud.draw(g);
     }
 
     public void keyPressed(int k) {

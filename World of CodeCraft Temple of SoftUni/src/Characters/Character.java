@@ -82,9 +82,25 @@ public abstract class Character extends MapObject implements ICharacter{
         this.setHeight(30);
         this.setCwidth(20);
         this.setCheight(20);
-        this.setFacingRight(true);
 
+        this.setMoveSpeed(0.3);
+        this.setMaxSpeed(1.6);
+        this.setStopSpeed(0.4);
+        this.setFallSpeed(0.15);
+        this.setMaxFallSpeed(4.0);
+        this.setJumpStart(-4.8);
+        this.setStopJumpSpeed(0.3);
+
+        this.setFacingRight(true);
         // load sprites // vse oshte nqmame gif za characterite
+        loadSprites();
+        this.setAnimation(new Animation());
+        this.setCurrentAction(this.IDLE);
+        this.getAnimation().setFrames(this.sprites.get(this.IDLE));
+        this.getAnimation().setDelay(400);
+    }
+
+    private void loadSprites() {
         try {
 
             BufferedImage spritesheet = ImageIO.read(
@@ -127,21 +143,20 @@ public abstract class Character extends MapObject implements ICharacter{
         catch(Exception e) {
             e.printStackTrace();
         }
-        this.setAnimation(new Animation());
-        this.setCurrentAction(this.IDLE);
-        this.getAnimation().setFrames(this.sprites.get(this.IDLE));
-        this.getAnimation().setDelay(400);
     }
 
     public int getMaxHealth() {
         return this.maxHealth;
     }
+
     public int getMana() {
         return this.mana;
     }
+
     public int getMaxMana() {
         return this.maxMana;
     }
+
     public int getHealth() {
         return this.health;
     }
@@ -156,6 +171,7 @@ public abstract class Character extends MapObject implements ICharacter{
     public void setState(int value) {
         this.currentGameState = value;
     }
+
     public void setCasting() {
         this.casting = true;
     }
@@ -252,8 +268,7 @@ public abstract class Character extends MapObject implements ICharacter{
         }
 
         // cannot move while attacking, except in air
-        if(
-                (this.getCurrentAction() == this.ATTACKING || this.getCurrentAction() == this.CASTING) &&
+        if((this.getCurrentAction() == this.ATTACKING || this.getCurrentAction() == this.CASTING) &&
                         !(this.isJumping() || this.isFalling())) {
             this.setDx(0);
         }
@@ -273,7 +288,7 @@ public abstract class Character extends MapObject implements ICharacter{
             if(this.getDy() > 0) this.setJumping(false);
             if(this.getDy() < 0 && !this.isJumping()) this.setDy(this.getDy() + this.getStopJumpSpeed());;
 
-            if(this.getDy() > this.getMaxFallSpeed()) this.setDy(this.getDy() + this.getMaxFallSpeed());
+            if(this.getDy() > this.getMaxFallSpeed()) this.setDy(this.getMaxFallSpeed());
 
         }
 

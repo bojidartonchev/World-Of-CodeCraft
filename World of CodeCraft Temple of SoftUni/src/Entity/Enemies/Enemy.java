@@ -105,6 +105,7 @@ public abstract class Enemy extends MapObject {
 
         // if hits a wall, change direction to opposite
         if(this.isRight()  && this.getDx() == 0){
+
             this.setRight(false);
             this.setLeft(true);
             this.setFacingRight(false);
@@ -115,6 +116,8 @@ public abstract class Enemy extends MapObject {
             this.setRight(true);
             this.setFacingRight(true);
         }
+
+        // this.setDx(0.2); todo : kinda works
         // update animation
         this.getAnimation().update();
     }
@@ -146,7 +149,7 @@ public abstract class Enemy extends MapObject {
 
         // movement
         if(this.isLeft()){
-            this.setDx(this.getDx() - this.getMoveSpeed());
+            this.setDx(this.getDx() - this.getMoveSpeed()); // getDX = 0 ?
             if(this.getDx() < -this.getMaxSpeed()){
                 this.setDx(- this.getMaxSpeed());
             }
