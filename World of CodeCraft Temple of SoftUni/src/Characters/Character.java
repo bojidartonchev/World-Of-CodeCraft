@@ -83,8 +83,8 @@ public abstract class Character extends MapObject implements ICharacter{
         this.setCwidth(90);
         this.setCheight(100);
 
-        this.setMoveSpeed(0.3);
-        this.setMaxSpeed(1.6);
+        this.setMoveSpeed(2.3);
+        this.setMaxSpeed(5.6);
         this.setStopSpeed(0.4);
         this.setFallSpeed(0.15);
         this.setMaxFallSpeed(4.0);
