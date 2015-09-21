@@ -446,9 +446,9 @@ public abstract class Character extends MapObject implements ICharacter{
 
         setMapPosition();
         // draw spells
-        //for (int i = 0; i < this.spells.size(); i++) {
-        //    this.spells.get(i).draw(g);
-        //}
+        for (int i = 0; i < this.spells.size(); i++) {
+            this.spells.get(i).draw(g);
+        }
         // draw player
         if(this.flinching) {
             long elapsed =

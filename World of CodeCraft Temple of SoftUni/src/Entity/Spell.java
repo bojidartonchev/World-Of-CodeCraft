@@ -28,8 +28,8 @@ public class Spell extends MapObject {
             this.setDx(this.getDx() - this.getMoveSpeed());
         }
 
-        this.setWidth(30);
-        this.setHeight(30);
+        this.setWidth(60);
+        this.setHeight(60);
         this.setCwidth(14);
         this.setCheight(14);
 

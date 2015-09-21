@@ -1,9 +1,7 @@
 package GameState;
+
 import Characters.Character;
-import Entity.Enemies.Enemy;
-import Entity.Enemies.FinalBoss;
-import Entity.Enemies.GhostEnemy;
-import Entity.Enemies.HelmetEnemy;
+import Entity.Enemies.*;
 import Entity.HUD;
 import Main.GamePanel;
 import TileMap.Background;
@@ -11,7 +9,6 @@ import TileMap.TileMap;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 
@@ -20,6 +17,7 @@ public class Level1State extends GameState{
     private TileMap tileMap;
     private Background bg;
     private ArrayList<Enemy> enemies;
+    private ArrayList<Explosion> explosions;
     private Character player;
     private boolean isInitialize = false;
 
@@ -31,6 +29,7 @@ public class Level1State extends GameState{
         this.tileMap.loadMap("/Maps/level1-1.map");
         this.tileMap.setPosition(0, 0);
         this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
+        this.explosions = new ArrayList<>();
         super.setTileMap(this.tileMap);
         initEnemies();
     }
@@ -60,7 +59,7 @@ public class Level1State extends GameState{
         Enemy helemetEnemy ;
 
         for (int i = 0; i < helmetCoordinates.length; i++) {
-            helemetEnemy = new HelmetEnemy(this.tileMap);
+            helemetEnemy = new HelmetEnemy(this.getTileMap());
             helemetEnemy.setPosition(helmetCoordinates[i].x, helmetCoordinates[i].y);
             this.enemies.add(helemetEnemy);
         }
@@ -75,18 +74,18 @@ public class Level1State extends GameState{
 
         GhostEnemy ghostEnemy;
         for (int i = 0; i < ghostsCoordinates.length; i++) {
-            ghostEnemy = new GhostEnemy(this.tileMap);
+            ghostEnemy = new GhostEnemy(this.getTileMap());
             ghostEnemy.setPosition(ghostsCoordinates[i].x, ghostsCoordinates[i].y);
             this.enemies.add(ghostEnemy);
         }
-        // todo : add boss
+        FinalBoss boss = new FinalBoss(this.getTileMap());
+        boss.setPosition(10800,700);
+        this.enemies.add(boss);
     }
 
 
     @Override
     public void update() {
-        // update enemies
-        //this.enemies.stream().forEach(enemy-> enemy.update());
 
         // update player
 
@@ -116,22 +115,21 @@ public class Level1State extends GameState{
             if(enemy.isDead()){
                 this.enemies.remove(enemy);
                 i--;
-                // explosions.add(new Explosion(enemy.getx(), enemy.gety()));
+                explosions.add(new Explosion((int)enemy.getX(), (int)enemy.getY()));
 
             }
         }
 
         //// update explosions
-        //for (int i = 0; i < explosions.size(); i++) {
-        //    explosions.get(i).update();
-        //    if(explosions.get(i).shouldRemove()){
-        //        explosions.remove(i);
-        //        i--;
-        //    }
-        //}
+        for (int i = 0; i < explosions.size(); i++) {
+            explosions.get(i).update();
+            if(explosions.get(i).shouldRemove()){
+                explosions.remove(i);
+                i--;
+            }
+        }
 
-        // update enemies
-        //this.enemies.stream().forEach(enemy-> enemy.update());
+
     }
 
     @Override
@@ -155,11 +153,11 @@ public class Level1State extends GameState{
             this.enemies.get(i).draw(g);
         }
 
-        ////draw explosions
-        //for (int i = 0; i < explosions.size(); i++) {
-        //    explosions.get(i).setMapPosotion((int)tileMap.getx(), (int)tileMap.gety());
-        //    explosions.get(i).draw(g);
-        //}
+        //draw explosions
+        for (int i = 0; i < explosions.size(); i++) {
+            explosions.get(i).setMapPosotion((int)tileMap.getx(), (int)tileMap.gety());
+            explosions.get(i).draw(g);
+        }
 //
         //// draw HUD
         this.hud.draw(g);
