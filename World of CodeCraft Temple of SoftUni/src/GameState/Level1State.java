@@ -1,13 +1,13 @@
 package GameState;
-import Characters.*;
 import Characters.Character;
 import Entity.Enemies.Enemy;
 import Entity.Enemies.GhostEnemy;
 import Entity.Enemies.HelmetEnemy;
 import Entity.HUD;
-import Main.Game;
 import Main.GamePanel;
-import TileMap.*;
+import TileMap.Background;
+import TileMap.TileMap;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class Level1State extends GameState{
         // TODO: Player is null
         this.player = this.gsm.gameStates.get(GameStateManager.LOAD_CHARACTER_STATE).getCharacter();
 
-        this.tileMap = new TileMap(30);
+        this.tileMap = new TileMap(120);
         this.tileMap.loadTiles("/Tilesets/grasstileset.gif");
         this.tileMap.loadMap("/Maps/level1-1.map");
         this.tileMap.setPosition(0, 0);
@@ -102,13 +102,13 @@ public class Level1State extends GameState{
     public void draw(Graphics2D g) {
 
         if(!isInitialize){
-            this.player.setPosition(200, 200);
+            this.player.setPosition(300, 600);
             this.hud = new HUD(this.player);
 
             isInitialize = true;
         }
 
-        GamePanel.SCALE = 3;
+       // GamePanel.SCALE = 3;
 
         // draw bg
         this.bg.draw(g);

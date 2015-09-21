@@ -1,12 +1,13 @@
 package TileMap;
 
-import java.awt.*;
-import java.awt.image.*;
-
-import java.io.*;
-import javax.imageio.ImageIO;
-
 import Main.GamePanel;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class TileMap {
 

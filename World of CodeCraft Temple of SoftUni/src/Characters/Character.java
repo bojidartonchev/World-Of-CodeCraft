@@ -78,9 +78,9 @@ public abstract class Character extends MapObject implements ICharacter{
 
 
     private void init(){
-        this.setWidth(30);
-        this.setHeight(30);
-        this.setCwidth(20);
+        this.setWidth(100);
+        this.setHeight(129);
+        this.setCwidth(40);
         this.setCheight(20);
 
         this.setMoveSpeed(0.3);
@@ -88,7 +88,7 @@ public abstract class Character extends MapObject implements ICharacter{
         this.setStopSpeed(0.4);
         this.setFallSpeed(0.15);
         this.setMaxFallSpeed(4.0);
-        this.setJumpStart(-4.8);
+        this.setJumpStart(-8.8);
         this.setStopJumpSpeed(0.3);
 
         this.setFacingRight(true);
@@ -105,7 +105,7 @@ public abstract class Character extends MapObject implements ICharacter{
 
             BufferedImage spritesheet = ImageIO.read(
                     getClass().getResourceAsStream(
-                            "/Sprites/Player/playersprites.gif"
+                            "/Sprites/Player/playersprites.png"
                     )
             );
 
