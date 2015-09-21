@@ -170,9 +170,9 @@ public abstract class Enemy extends MapObject {
 
     @Override
     public void draw(Graphics2D graphics){
-//        if(notOnScreen()){
-//            return;
-//        }
+       //(notOnScreen()){
+       //  return;
+       //
 
         setMapPosition();
 

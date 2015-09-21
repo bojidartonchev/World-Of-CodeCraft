@@ -88,10 +88,12 @@ public class Level1State extends GameState{
     public void update() {
 
         // update player
-
+        try{
         if(player.getHealth() <= 0){
             this.bg = new Background("/Backgrounds/gameover.png",0);
             return;
+        }}catch (Exception ex){
+            System.out.println("Game over!!!");
         }
 
         this.player.update();

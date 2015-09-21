@@ -3,7 +3,6 @@ package Entity.Enemies;
 import TileMap.TileMap;
 
 public class FinalBoss extends Enemy{
-    private long counter = 0;
 
     private final int numberOfSprites = 4;
     private  long animationDelay = 400;
@@ -12,7 +11,7 @@ public class FinalBoss extends Enemy{
     private final int damage = 15;
 
     private final String spritesPath = "/Sprites/Enemies/boss.gif";
-    private boolean animationSetOnce = false;
+
 
     public FinalBoss(TileMap tileMap) {
         super(tileMap, EnemyType.BOSS);
@@ -41,11 +40,8 @@ public class FinalBoss extends Enemy{
     protected void setAnimation(long animationDelay) {
         super.setAnimation(animationDelay);
 
-        if(!animationSetOnce){
-            this.setRight(true);
-            this.setFacingRight(true);
-            this.animationSetOnce = true;
-        }
+        this.setRight(true);
+        this.setFacingRight(true);
     }
 
 

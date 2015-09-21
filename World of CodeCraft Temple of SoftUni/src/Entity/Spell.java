@@ -30,8 +30,8 @@ public class Spell extends MapObject {
 
         this.setWidth(60);
         this.setHeight(60);
-        this.setCwidth(14);
-        this.setCheight(14);
+        this.setCwidth(34);
+        this.setCheight(34);
 
         // load sprites
         try {
