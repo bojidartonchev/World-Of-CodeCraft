@@ -8,17 +8,17 @@ import java.awt.image.BufferedImage;
 
 public class Spell extends MapObject {
 
-    private int damage;
-    private int range;
-    private int manaCost;
     private boolean hit;
     private boolean remove;
     private BufferedImage[] sprites;
     private BufferedImage[] hitSprites;
+    private int spellCost;
+    private int spellDamage;
 
     public Spell(TileMap tm, boolean right) {
         super(tm);
-
+        this.setSpellCost(200);
+        this.setSpellDamage(5);
         this.setFacingRight(right);
 
         this.setMoveSpeed(3.8);
@@ -36,7 +36,7 @@ public class Spell extends MapObject {
         // load sprites
         try {
             BufferedImage spritesheet = ImageIO.read(getClass().getResourceAsStream(
-                            "/Sprites/Player/spell.gif"
+                            "/Sprites/Spells/magespell.gif"
                     )
             );
 
@@ -64,24 +64,12 @@ public class Spell extends MapObject {
                 this.getAnimation().setDelay(70);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("error loading image for spell");
         }
 
 
     }
 
-
-    public int getManaCost() {
-        return this.manaCost;
-    }
-
-    public int getDamage() {
-        return this.damage;
-    }
-
-    public int getRange() {
-        return this.range;
-    }
 
     public void setHit() {
         if(this.hit) return;
@@ -106,6 +94,22 @@ public class Spell extends MapObject {
         if(this.hit && this.getAnimation().hasPlayedOnce()){
             this.remove = true;
         }
+    }
+
+    public int getSpellDamage() {
+        return spellDamage;
+    }
+
+    public void setSpellDamage(int spellDamage) {
+        this.spellDamage = spellDamage;
+    }
+
+    public int getSpellCost() {
+        return spellCost;
+    }
+
+    public void setSpellCost(int spellCost) {
+        this.spellCost = spellCost;
     }
 
     public void draw(Graphics2D g){

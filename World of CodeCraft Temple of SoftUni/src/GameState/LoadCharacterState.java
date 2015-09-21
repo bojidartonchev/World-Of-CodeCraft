@@ -170,7 +170,6 @@ public class LoadCharacterState extends GameState {
         int level =Integer.parseInt(levelData.substring(levelData.indexOf(":")+1));
         //change to Character
         if(data.get(1).contains("Mage")){
-
             currentChar= new Mage("magename",this.gsm.gameStates.get(GameStateManager.LEVEL_1_STATE).getTileMap(),53,level+1);
         }
         else if(data.get(1).contains("Rogue")){
@@ -181,7 +180,6 @@ public class LoadCharacterState extends GameState {
     }
 
     private void select() {
-
         this.gsm.gameStates.get(GameStateManager.LEVEL_1_STATE).setCharacter(this.currentChar);
         this.gsm.setState(this.currentChar.getState());
 

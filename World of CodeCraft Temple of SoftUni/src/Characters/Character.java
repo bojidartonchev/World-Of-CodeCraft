@@ -28,7 +28,7 @@ public abstract class Character extends MapObject implements ICharacter{
     // Casting
     private boolean casting;
     private ArrayList<Spell> spells;
-    private Spell spell;
+
 
     // Attacking
     private boolean attacking;
@@ -62,8 +62,15 @@ public abstract class Character extends MapObject implements ICharacter{
         this.name = name;
         this.health = this.maxHealth = maxHealth;
         this.init();
-        //this.spells = spells;
-        //this.spell = spell;
+        this.spells = new ArrayList<>();
+        Spell spell = new Spell(this.getTileMap(),true);
+        this.spells.add(spell);
+        this.setAttackDamage(8);
+        this.setAttackRange(40);
+        this.setMana(2500);
+        this.setMaxMana(2500);
+
+
     }
 
     protected Character(String name, TileMap tileMap, int maxHealth, int level){
@@ -72,8 +79,13 @@ public abstract class Character extends MapObject implements ICharacter{
         this.name = name;
         this.health = this.maxHealth = maxHealth;
         this.init();
-        //this.spells = spells;
-        //this.spell = spell;
+        this.spells = new ArrayList<>();
+        Spell spell = new Spell(this.getTileMap(),true);
+        this.spells.add(spell);
+        this.setAttackDamage(8);
+        this.setAttackRange(40);
+        this.setMana(2500);
+        this.setMaxMana(2500);
     }
 
 
@@ -161,6 +173,21 @@ public abstract class Character extends MapObject implements ICharacter{
     public int getHealth() {
         return this.health;
     }
+    public int getAttackRange() {
+        return attackRange;
+    }
+
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
+    public void setAttackDamage(int attackDamage) {
+        this.attackDamage = attackDamage;
+    }
     public int getState() {
         return this.currentGameState;
     }
@@ -181,6 +208,14 @@ public abstract class Character extends MapObject implements ICharacter{
     }
     public void setGliding(boolean b) {
         this.gliding = b;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public void setMaxMana(int maxMana) {
+        this.maxMana = maxMana;
     }
 
 
@@ -215,13 +250,13 @@ public abstract class Character extends MapObject implements ICharacter{
                 }
             }
             // spells
-           // for (int j = 0; j < this.spells.size(); j++) {
-           //     if(this.spells.get(j).intersects(e)){
-           //         e.hit(this.spell.getDamage());
-           //         this.spells.get(j).setHit();
-           //         break;
-           //     }
-           // }
+            for (int j = 0; j < this.spells.size(); j++) {
+                if(this.spells.get(j).intersects(e)){
+                    e.hit(this.spells.get(j).getSpellDamage());
+                    this.spells.get(j).setHit();
+                    break;
+                }
+            }
             // check for enemy collision
             if(intersects(e)){
                 this.hit(e.getDamage());
@@ -311,11 +346,11 @@ public abstract class Character extends MapObject implements ICharacter{
         }
 
         // spell attack
-        this.mana += 10;
+        this.mana += 1;
         if(this.mana > this.maxMana) this.mana = this.maxMana;
         if(this.casting && this.getCurrentAction() != this.CASTING){
-            if(this.mana > this.spell.getManaCost()){
-                this.mana -= this.spell.getManaCost();
+            if(this.mana > 200){
+                this.mana -= 200;
                 Spell temporarySpell = new Spell(this.getTileMap(), this.isFacingRight());
                 temporarySpell.setPosition(this.getX(), this.getY());
                 this.spells.add(temporarySpell);
@@ -323,13 +358,13 @@ public abstract class Character extends MapObject implements ICharacter{
         }
 
         // update spells
-       // for (int i = 0; i < this.spells.size(); i++) {
-       //     this.spells.get(i).update();
-       //     if(this.spells.get(i).shouldRemove()){
-       //         this.spells.remove(i);
-       //         i--;
-       //     }
-       // }
+       for (int i = 0; i < this.spells.size(); i++) {
+           this.spells.get(i).update();
+           if(this.spells.get(i).shouldRemove()){
+               this.spells.remove(i);
+               i--;
+           }
+       }
 
         // check done flinching
         if(this.flinching){
@@ -426,5 +461,6 @@ public abstract class Character extends MapObject implements ICharacter{
         super.draw(g);
 
     }
+
 }
 

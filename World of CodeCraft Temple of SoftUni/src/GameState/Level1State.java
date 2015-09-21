@@ -1,9 +1,6 @@
 package GameState;
 import Characters.Character;
-import Entity.Enemies.Enemy;
-import Entity.Enemies.FinalBoss;
-import Entity.Enemies.GhostEnemy;
-import Entity.Enemies.HelmetEnemy;
+import Entity.Enemies.*;
 import Entity.HUD;
 import Main.GamePanel;
 import TileMap.Background;
@@ -11,7 +8,6 @@ import TileMap.TileMap;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 
@@ -20,6 +16,7 @@ public class Level1State extends GameState{
     private TileMap tileMap;
     private Background bg;
     private ArrayList<Enemy> enemies;
+    private ArrayList<Explosion> explosions;
     private Character player;
     private boolean isInitialize = false;
 
@@ -32,6 +29,7 @@ public class Level1State extends GameState{
         this.tileMap.setPosition(0, 0);
         this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
         super.setTileMap(this.tileMap);
+        this.explosions = new ArrayList<>();
         initEnemies();
 
     }
@@ -50,56 +48,25 @@ public class Level1State extends GameState{
 
     private void initEnemies() {
         this.enemies = new ArrayList<Enemy>();
-        Point[] helmetCoordinates = new Point[]{
-          new Point(700, 800),
-          new Point(3000, 800),
-          new Point(3900, 800),
-          new Point(5900, 800),
-          new Point(6800, 800),
+        Enemy firstEnemy = new HelmetEnemy(this.tileMap);
 
-        };
+        firstEnemy.setPosition(660, 800);
+        this.enemies.add(firstEnemy);
 
-        Enemy helemetEnemy ;
+        Enemy secondEnemy = new GhostEnemy(this.tileMap);
+        secondEnemy.setPosition(200, 400);
+        this.enemies.add(secondEnemy);
 
-        for (int i = 0; i < helmetCoordinates.length; i++) {
-            helemetEnemy = new HelmetEnemy(this.tileMap);
-            helemetEnemy.setPosition(helmetCoordinates[i].x, helmetCoordinates[i].y);
-            this.enemies.add(helemetEnemy);
-        }
-
-        Point[] ghostsCoordinates = new Point[]{
-                new Point(3000, 400),
-                new Point(3900, 400),
-                new Point(5900, 400),
-                new Point(6800, 550),
-
-        };
-
-        GhostEnemy ghostEnemy;
-        for (int i = 0; i < ghostsCoordinates.length; i++) {
-            ghostEnemy = new GhostEnemy(this.tileMap);
-            ghostEnemy.setPosition(ghostsCoordinates[i].x, ghostsCoordinates[i].y);
-            this.enemies.add(ghostEnemy);
-        }
-
-//        Enemy thirdEnemy = new HelmetEnemy(this.tileMap);
-//        thirdEnemy.setPosition(1600, 800);
-//        this.enemies.add(thirdEnemy);
-//
-//        Enemy secondEnemy = new GhostEnemy(this.tileMap);
-//        secondEnemy.setPosition(200, 400);
-//        this.enemies.add(secondEnemy);
-//
-//        Enemy boss = new FinalBoss(this.tileMap);
-//        boss.setPosition(200, 400);
-//        this.enemies.add(boss);
+        Enemy boss = new FinalBoss(this.tileMap);
+        boss.setPosition(600, 400);
+        this.enemies.add(boss);
     }
 
 
     @Override
     public void update() {
         // update enemies
-        //this.enemies.stream().forEach(enemy-> enemy.update());
+        this.enemies.stream().forEach(enemy-> enemy.update());
 
         // update player
 
@@ -123,22 +90,21 @@ public class Level1State extends GameState{
             if(enemy.isDead()){
                 this.enemies.remove(enemy);
                 i--;
-                // explosions.add(new Explosion(enemy.getx(), enemy.gety()));
+                explosions.add(new Explosion((int)enemy.getX(), (int)enemy.getY()));
 
             }
         }
 
         //// update explosions
-        //for (int i = 0; i < explosions.size(); i++) {
-        //    explosions.get(i).update();
-        //    if(explosions.get(i).shouldRemove()){
-        //        explosions.remove(i);
-        //        i--;
-        //    }
-        //}
+        for (int i = 0; i < explosions.size(); i++) {
+            explosions.get(i).update();
+            if(explosions.get(i).shouldRemove()){
+                explosions.remove(i);
+                i--;
+            }
+        }
 
-        // update enemies
-        //this.enemies.stream().forEach(enemy-> enemy.update());
+
     }
 
     @Override
@@ -163,13 +129,13 @@ public class Level1State extends GameState{
         }
 
         ////draw explosions
-        //for (int i = 0; i < explosions.size(); i++) {
-        //    explosions.get(i).setMapPosotion((int)tileMap.getx(), (int)tileMap.gety());
-        //    explosions.get(i).draw(g);
-        //}
+        for (int i = 0; i < explosions.size(); i++) {
+            explosions.get(i).setMapPosotion((int) tileMap.getx(), (int) tileMap.gety());
+            explosions.get(i).draw(g);
+        }
 //
         //// draw HUD
-        //this.hud.draw(g);
+        this.hud.draw(g);
     }
 
     public void keyPressed(int k) {

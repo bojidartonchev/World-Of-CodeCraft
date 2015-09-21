@@ -8,7 +8,7 @@ public class FinalBoss extends Enemy{
     private final int numberOfSprites = 4;
     private  long animationDelay = 400;
 
-    private final int maxHealth = 30;
+    private final int maxHealth = 50;
     private final int damage = 15;
 
     private final String spritesPath = "/Sprites/Enemies/boss.gif";
@@ -17,8 +17,8 @@ public class FinalBoss extends Enemy{
     public FinalBoss(TileMap tileMap) {
         super(tileMap, EnemyType.BOSS);
 
-        this.setMoveSpeed(3.9);
-        this.setMaxSpeed(3.9);
+        this.setMoveSpeed(2.9);
+        this.setMaxSpeed(2.9);
         this.setFallSpeed(0.5);
         this.setMaxFallSpeed(10.0);
 
@@ -48,29 +48,6 @@ public class FinalBoss extends Enemy{
         }
     }
 
-    @Override
-    protected void goToNextPosition() {
 
-        this.counter++;
-        // movement
-        if(this.isLeft()){
-            this.setDx(this.getDx() - this.getMoveSpeed());
-            if(this.getDx() < -this.getMaxSpeed()){
-                this.setDx(-this.getMaxSpeed()* 3 );
-                this.animationDelay = 150;
-            }
-        }
-        else if(this.isRight()){
-            this.setDx(this.getDx() + this.getMoveSpeed());
-            if(this.getDx() > this.getMaxSpeed()){
-                this.setDx(this.getMaxSpeed());
 
-            }
-        }
-
-        if(this.isFalling()) {
-            this.setDy(this.getDy() + this.getFallSpeed());
-        }
-
-    }
 }
