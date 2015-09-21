@@ -117,8 +117,8 @@ public abstract class Enemy extends MapObject {
             this.setFacingRight(true);
         }
 
-        // this.setDx(0.2); todo : kinda works
-        // update animation
+        this.setDx(0.2);
+        //update animation
         this.getAnimation().update();
     }
 

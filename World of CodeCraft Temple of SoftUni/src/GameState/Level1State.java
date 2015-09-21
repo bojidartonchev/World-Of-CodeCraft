@@ -50,11 +50,11 @@ public class Level1State extends GameState{
         this.enemies = new ArrayList<Enemy>();
         Enemy firstEnemy = new HelmetEnemy(this.tileMap);
 
-        firstEnemy.setPosition(250, 200);
+        firstEnemy.setPosition(660, 800);
         this.enemies.add(firstEnemy);
 
         Enemy secondEnemy = new GhostEnemy(this.tileMap);
-        secondEnemy.setPosition(200, 100);
+        secondEnemy.setPosition(200, 400);
         this.enemies.add(secondEnemy);
     }
 
