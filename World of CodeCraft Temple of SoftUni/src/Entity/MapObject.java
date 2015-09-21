@@ -372,60 +372,60 @@ public abstract class MapObject {
 
     public void checkTileMapCollision() {
 
-        this.currCol = (int)x / tileSize;
-        this.currRow = (int)y / tileSize;
+        currCol = (int)x / tileSize;
+        currRow = (int)y / tileSize;
 
-        this.xdest = this.x + this.dx;
-        this.ydest = this.y + this.dy;
+        xdest = x + dx;
+        ydest = y + dy;
 
-        this.xtemp = this.x;
-        this.ytemp = this.y;
+        xtemp = x;
+        ytemp = y;
 
-        calculateCorners(this.x, this.ydest);
-        if(this.dy < 0) {
-            if(this.topLeft || this.topRight) {
-                this.dy = 0;
-                this.ytemp = this.currRow * this.tileSize + this.cheight / 2;
+        calculateCorners(x, ydest);
+        if(dy < 0) {
+            if(topLeft || topRight) {
+                dy = 0;
+                ytemp = currRow * tileSize + cheight / 2;
             }
             else {
-                this.ytemp += this.dy;
+                ytemp += dy;
             }
         }
-        if(this.dy > 0) {
-            if(this.bottomLeft || this.bottomRight) {
-                this.dy = 0;
-                this.falling = false;
-                this.ytemp = (this.currRow + 1) * this.tileSize - this.cheight / 2;
+        if(dy > 0) {
+            if(bottomLeft || bottomRight) {
+                dy = 0;
+                falling = false;
+                ytemp = (currRow + 1) * tileSize - cheight / 2;
             }
             else {
-                this.ytemp += this.dy;
-            }
-        }
-
-        calculateCorners(this.xdest, this.y);
-        if(this.dx < 0) {
-            if(this.topLeft || this.bottomLeft) {
-                this.dx = 0;
-                this.xtemp = this.currCol * this.tileSize + this.cwidth / 2;
-            }
-            else {
-                this.xtemp += this.dx;
-            }
-        }
-        if(this.dx > 0) {
-            if(this.topRight || this.bottomRight) {
-                this.dx = 0;
-                this.xtemp = (this.currCol + 1) * this.tileSize - this.cwidth / 2;
-            }
-            else {
-                this.xtemp += this.dx;
+                ytemp += dy;
             }
         }
 
-        if(!this.falling) {
-            calculateCorners(this.x, this.ydest + 1);
-            if(!this.bottomLeft && !this.bottomRight) {
-                this.falling = true;
+        calculateCorners(xdest, y);
+        if(dx < 0) {
+            if(topLeft || bottomLeft) {
+                dx = 0;
+                xtemp = currCol * tileSize + cwidth / 2;
+            }
+            else {
+                xtemp += dx;
+            }
+        }
+        if(dx > 0) {
+            if(topRight || bottomRight) {
+                dx = 0;
+                xtemp = (currCol + 1) * tileSize - cwidth / 2;
+            }
+            else {
+                xtemp += dx;
+            }
+        }
+
+        if(!falling) {
+            calculateCorners(x, ydest + 1);
+            if(!bottomLeft && !bottomRight) {
+                falling = true;
             }
         }
 

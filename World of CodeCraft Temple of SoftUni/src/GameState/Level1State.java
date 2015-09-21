@@ -24,16 +24,6 @@ public class Level1State extends GameState{
     private HUD hud;
     public Level1State(GameStateManager gsm) {
         super(gsm);
-        initialize();
-
-    }
-
-    @Override
-    public void initialize() {
-
-        // TODO: Player is null
-        this.player = this.gsm.gameStates.get(GameStateManager.LOAD_CHARACTER_STATE).getCharacter();
-
         this.tileMap = new TileMap(120);
         this.tileMap.loadTiles("/Tilesets/grasstileset.gif");
         this.tileMap.loadMap("/Maps/level1-1.map");
@@ -41,15 +31,29 @@ public class Level1State extends GameState{
         this.bg = new Background("/Backgrounds/grassbg1.gif", 0.1);
         super.setTileMap(this.tileMap);
         initEnemies();
+
+    }
+
+    @Override
+    public void initialize() {
+
+        // TODO: Player is null
+        this.player = this.getCharacter();
+        this.hud = new HUD(this.player);
+
+        this.player.setPosition(200, 600);
+
+
     }
 
     private void initEnemies() {
         this.enemies = new ArrayList<Enemy>();
-        Enemy firstEnemy = new HelmetEnemy(tileMap);
+        Enemy firstEnemy = new HelmetEnemy(this.tileMap);
+
         firstEnemy.setPosition(250, 200);
         this.enemies.add(firstEnemy);
 
-        Enemy secondEnemy = new GhostEnemy(tileMap);
+        Enemy secondEnemy = new GhostEnemy(this.tileMap);
         secondEnemy.setPosition(200, 100);
         this.enemies.add(secondEnemy);
     }
@@ -61,6 +65,7 @@ public class Level1State extends GameState{
         //this.enemies.stream().forEach(enemy-> enemy.update());
 
         // update player
+
         this.player.update();
         this.tileMap.setPosition(
                 GamePanel.WIDTH / 2 - this.player.getX(),
@@ -71,6 +76,7 @@ public class Level1State extends GameState{
         this.bg.setPosition(this.tileMap.getx(), this.tileMap.gety());
 
         // attack enemies
+
         player.checkAttack(this.enemies);
 
         // update all enemies
@@ -101,12 +107,7 @@ public class Level1State extends GameState{
     @Override
     public void draw(Graphics2D g) {
 
-        if(!isInitialize){
-            this.player.setPosition(300, 600);
-            this.hud = new HUD(this.player);
 
-            isInitialize = true;
-        }
 
        // GamePanel.SCALE = 3;
 

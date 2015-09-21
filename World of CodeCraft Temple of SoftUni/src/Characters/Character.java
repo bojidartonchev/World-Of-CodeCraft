@@ -80,8 +80,8 @@ public abstract class Character extends MapObject implements ICharacter{
     private void init(){
         this.setWidth(100);
         this.setHeight(129);
-        this.setCwidth(40);
-        this.setCheight(20);
+        this.setCwidth(90);
+        this.setCheight(100);
 
         this.setMoveSpeed(0.3);
         this.setMaxSpeed(1.6);
@@ -184,6 +184,7 @@ public abstract class Character extends MapObject implements ICharacter{
 
 
     public void checkAttack(ArrayList<Enemy> enemies) {
+
         // Loop through enemies
         for (int i = 0; i < enemies.size(); i++) {
 

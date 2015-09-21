@@ -4,12 +4,10 @@ package GameState;
 import Characters.Character;
 import Characters.Mage;
 import Characters.Rogue;
-import Main.Game;
 import Main.GamePanel;
 import TileMap.Background;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -183,8 +181,8 @@ public class LoadCharacterState extends GameState {
     }
 
     private void select() {
-        super.setCharacter(this.currentChar);
 
+        this.gsm.gameStates.get(GameStateManager.LEVEL_1_STATE).setCharacter(this.currentChar);
         this.gsm.setState(this.currentChar.getState());
 
     }
