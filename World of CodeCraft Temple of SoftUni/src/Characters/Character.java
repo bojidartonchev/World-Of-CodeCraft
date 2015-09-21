@@ -100,12 +100,13 @@ public abstract class Character extends MapObject implements ICharacter{
         this.getAnimation().setDelay(400);
     }
 
-    private void loadSprites() {
+    public void loadSprites() {
+
         try {
 
             BufferedImage spritesheet = ImageIO.read(
                     getClass().getResourceAsStream(
-                            "/Sprites/Player/playersprites.png"
+                            "/Sprites/Player/"+this.getClass().getSimpleName().toLowerCase()+"sprites.png"
                     )
             );
 
