@@ -6,7 +6,7 @@ import TileMap.TileMap;
 public class HelmetEnemy extends Enemy {
 
     private final int maxHealth = 2;
-    private final int damage = 2;
+    private final int damage = 10;
 
     private final int numberOfSprites = 8;
     private final long animationDelay = 200;

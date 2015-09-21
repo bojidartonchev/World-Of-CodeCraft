@@ -9,7 +9,7 @@ public class GhostEnemy extends  Enemy{
     private final long animationDelay = 550;
 
     private final int maxHealth = 2;
-    private final int damage = 1;
+    private final int damage = 15;
 
     private final String spritesPath = "/Sprites/Enemies/ghost-enemy.gif";
 
