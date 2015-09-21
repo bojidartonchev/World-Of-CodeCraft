@@ -59,7 +59,7 @@ public class Level1State extends GameState{
         this.enemies.add(secondEnemy);
 
         Enemy boss = new FinalBoss(this.tileMap);
-        boss.setPosition(200, 400);
+        boss.setPosition(600, 400);
         this.enemies.add(boss);
     }
 
@@ -67,7 +67,7 @@ public class Level1State extends GameState{
     @Override
     public void update() {
         // update enemies
-        //this.enemies.stream().forEach(enemy-> enemy.update());
+        this.enemies.stream().forEach(enemy-> enemy.update());
 
         // update player
 

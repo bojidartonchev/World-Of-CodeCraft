@@ -1,6 +1,6 @@
 package Entity.Enemies;
 
-import Entity.Enemies.Enemy;import Entity.Enemies.EnemyType;import TileMap.TileMap;import java.lang.Override;import java.lang.String;
+import TileMap.TileMap;
 
 public class FinalBoss extends Enemy{
     private long counter = 0;
@@ -28,10 +28,10 @@ public class FinalBoss extends Enemy{
         this.setDamage(damage);
 
         // sprite dimentions
-        this.setWidth(60);
-        this.setHeight(60);
-        this.setCwidth(45);
-        this.setCheight(40);
+        this.setWidth(180);
+        this.setHeight(180);
+        this.setCwidth(145);
+        this.setCheight(140);
 
 
         super.loadSprites(spritesPath, numberOfSprites);

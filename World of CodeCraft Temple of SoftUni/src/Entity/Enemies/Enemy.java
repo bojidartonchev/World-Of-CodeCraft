@@ -90,6 +90,7 @@ public abstract class Enemy extends MapObject {
 
     public  void update(){
         // update position
+
         goToNextPosition();
         checkTileMapCollision();
         setPosition(this.getXtemp(), this.getYtemp());
