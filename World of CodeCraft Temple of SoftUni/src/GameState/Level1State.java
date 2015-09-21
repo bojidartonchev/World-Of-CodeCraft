@@ -11,6 +11,7 @@ import TileMap.TileMap;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 
@@ -49,25 +50,56 @@ public class Level1State extends GameState{
 
     private void initEnemies() {
         this.enemies = new ArrayList<Enemy>();
-        Enemy firstEnemy = new HelmetEnemy(this.tileMap);
+        Point[] helmetCoordinates = new Point[]{
+          new Point(700, 800),
+          new Point(3000, 800),
+          new Point(3900, 800),
+          new Point(5900, 800),
+          new Point(6800, 800),
 
-        firstEnemy.setPosition(660, 800);
-        this.enemies.add(firstEnemy);
+        };
 
-        Enemy secondEnemy = new GhostEnemy(this.tileMap);
-        secondEnemy.setPosition(200, 400);
-        this.enemies.add(secondEnemy);
+        Enemy helemetEnemy ;
 
-        Enemy boss = new FinalBoss(this.tileMap);
-        boss.setPosition(600, 400);
-        this.enemies.add(boss);
+        for (int i = 0; i < helmetCoordinates.length; i++) {
+            helemetEnemy = new HelmetEnemy(this.tileMap);
+            helemetEnemy.setPosition(helmetCoordinates[i].x, helmetCoordinates[i].y);
+            this.enemies.add(helemetEnemy);
+        }
+
+        Point[] ghostsCoordinates = new Point[]{
+                new Point(3000, 400),
+                new Point(3900, 400),
+                new Point(5900, 400),
+                new Point(6800, 550),
+
+        };
+
+        GhostEnemy ghostEnemy;
+        for (int i = 0; i < ghostsCoordinates.length; i++) {
+            ghostEnemy = new GhostEnemy(this.tileMap);
+            ghostEnemy.setPosition(ghostsCoordinates[i].x, ghostsCoordinates[i].y);
+            this.enemies.add(ghostEnemy);
+        }
+
+//        Enemy thirdEnemy = new HelmetEnemy(this.tileMap);
+//        thirdEnemy.setPosition(1600, 800);
+//        this.enemies.add(thirdEnemy);
+//
+//        Enemy secondEnemy = new GhostEnemy(this.tileMap);
+//        secondEnemy.setPosition(200, 400);
+//        this.enemies.add(secondEnemy);
+//
+//        Enemy boss = new FinalBoss(this.tileMap);
+//        boss.setPosition(200, 400);
+//        this.enemies.add(boss);
     }
 
 
     @Override
     public void update() {
         // update enemies
-        this.enemies.stream().forEach(enemy-> enemy.update());
+        //this.enemies.stream().forEach(enemy-> enemy.update());
 
         // update player
 
@@ -137,7 +169,7 @@ public class Level1State extends GameState{
         //}
 //
         //// draw HUD
-        this.hud.draw(g);
+        //this.hud.draw(g);
     }
 
     public void keyPressed(int k) {

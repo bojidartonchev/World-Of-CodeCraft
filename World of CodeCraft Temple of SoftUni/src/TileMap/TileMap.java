@@ -140,9 +140,16 @@ public class TileMap {
     }
 
     public int getType(int row, int col) {
-        int rc = map[row][col];
-        int r = rc / numTilesAcross;
-        int c = rc % numTilesAcross;
+        int r = -1;
+        int c = -1;
+        try {
+            int rc = map[row][col];
+            r = rc / numTilesAcross;
+            c = rc % numTilesAcross;
+            return this.tiles[r][c].getType();
+        }catch (ArrayIndexOutOfBoundsException e){
+            // todo : print game over
+        }
         return this.tiles[r][c].getType();
     }
 
