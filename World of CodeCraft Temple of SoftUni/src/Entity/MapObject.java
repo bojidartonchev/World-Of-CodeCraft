@@ -452,6 +452,10 @@ public abstract class MapObject {
                 this.y + ymap - this.height > GamePanel.HEIGHT;
     }
 
+    public boolean isPlayerOutOfBoundsOfMap(){
+        return this.tileMap.isOutOfBounds();
+    }
+
     public void draw(Graphics2D g){
         if(this.facingRight) {
             g.drawImage(

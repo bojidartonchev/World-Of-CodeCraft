@@ -41,6 +41,7 @@ public class TileMap {
     private int colOffset;
     private int numRowsToDraw;
     private int numColsToDraw;
+    private boolean isOutOfBounds;
 
     public TileMap(int tileSize) {
         this.tileSize = tileSize;
@@ -139,11 +140,20 @@ public class TileMap {
         return this.height;
     }
 
+    public boolean isOutOfBounds(){
+        return this.isOutOfBounds;
+    }
     public int getType(int row, int col) {
-        int rc = map[row][col];
-        int r = rc / numTilesAcross;
-        int c = rc % numTilesAcross;
-        return this.tiles[r][c].getType();
+        try {
+            int rc = map[row][col];
+            int r = rc / numTilesAcross;
+            int c = rc % numTilesAcross;
+
+            return this.tiles[r][c].getType();
+        }catch (ArrayIndexOutOfBoundsException e){
+            this.isOutOfBounds = true;
+        }
+        return -1;
     }
 
     public void setPosition(double x, double y) {
