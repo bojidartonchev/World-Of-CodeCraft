@@ -14,7 +14,7 @@ public class GhostEnemy extends  Enemy{
     private final String spritesPath = "/Sprites/Enemies/ghost-enemy.gif";
 
     public GhostEnemy(TileMap tileMap){
-        super(tileMap, EnemyType.GHOST_ENEMY);
+        super(tileMap, EnemyType.GHOST);
 
         this.setMoveSpeed(1.2);
         this.setMaxSpeed(1.2);

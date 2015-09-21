@@ -13,7 +13,7 @@ public class HelmetEnemy extends Enemy {
     private final String spritesPath = "/Sprites/Enemies/helmet-enemy.gif";
 
     public HelmetEnemy(TileMap tileMap){
-        super(tileMap, EnemyType.HELMET_ENEMY);
+        super(tileMap, EnemyType.HELMET);
 
         this.setMoveSpeed(2.3);
         this.setMaxSpeed(2.3);

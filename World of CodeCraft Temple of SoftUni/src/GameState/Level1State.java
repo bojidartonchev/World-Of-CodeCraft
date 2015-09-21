@@ -1,6 +1,7 @@
 package GameState;
 import Characters.Character;
 import Entity.Enemies.Enemy;
+import Entity.Enemies.FinalBoss;
 import Entity.Enemies.GhostEnemy;
 import Entity.Enemies.HelmetEnemy;
 import Entity.HUD;
@@ -56,6 +57,10 @@ public class Level1State extends GameState{
         Enemy secondEnemy = new GhostEnemy(this.tileMap);
         secondEnemy.setPosition(200, 400);
         this.enemies.add(secondEnemy);
+
+        Enemy boss = new FinalBoss(this.tileMap);
+        boss.setPosition(200, 400);
+        this.enemies.add(boss);
     }
 
 
