@@ -20,6 +20,7 @@ public class Level1State extends GameState{
     private ArrayList<Explosion> explosions;
     private Character player;
     private boolean isInitialize = false;
+    private boolean hasWon = false;
 
     private HUD hud;
     public Level1State(GameStateManager gsm) {
@@ -53,6 +54,7 @@ public class Level1State extends GameState{
           new Point(3900, 800),
           new Point(5900, 800),
           new Point(6800, 800),
+          new Point(7000, 800),
 
         };
 
@@ -68,7 +70,13 @@ public class Level1State extends GameState{
                 new Point(3000, 400),
                 new Point(3900, 400),
                 new Point(5900, 400),
-                new Point(6800, 550),
+                new Point(6800, 580),
+                new Point(10500, 500),
+                new Point(10800, 600),
+                new Point(12000, 600),
+                new Point(12500, 510),
+
+
 
         };
 
@@ -95,7 +103,13 @@ public class Level1State extends GameState{
         }}catch (Exception ex){
             System.out.println("Game over!!!");
         }
-
+        try{
+            if(this.hasWon == true){
+                this.bg = new Background("/Backgrounds/Winner.png",0);
+                return;
+            }}catch (Exception ex){
+            System.out.println("You Won!!!");
+        }
 
         this.player.update();
 
@@ -116,6 +130,10 @@ public class Level1State extends GameState{
             Enemy enemy = this.enemies.get(i);
             enemy.update();
             if(enemy.isDead()){
+                if(enemy.getType() == EnemyType.BOSS){
+                    this.hasWon = true;
+
+                }
                 this.enemies.remove(enemy);
                 i--;
                 explosions.add(new Explosion((int)enemy.getX(), (int)enemy.getY()));

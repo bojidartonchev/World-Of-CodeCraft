@@ -16,8 +16,8 @@ public class FinalBoss extends Enemy{
     public FinalBoss(TileMap tileMap) {
         super(tileMap, EnemyType.BOSS);
 
-        this.setMoveSpeed(2.9);
-        this.setMaxSpeed(2.9);
+        this.setMoveSpeed(4.5);
+        this.setMaxSpeed(6);
         this.setFallSpeed(0.5);
         this.setMaxFallSpeed(10.0);
 

@@ -28,6 +28,9 @@ public abstract class Enemy extends MapObject {
         this.type = type;
     }
 
+    public EnemyType getType(){
+        return this.type;
+    }
     public int getCurrentHealth() {
         return currentHealth;
     }
