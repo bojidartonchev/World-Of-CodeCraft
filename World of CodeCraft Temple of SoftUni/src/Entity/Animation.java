@@ -42,8 +42,9 @@ public class Animation {
             this.startTime = System.nanoTime();
         }
         if(this.currentFrame == this.frames.length) {
-            this.currentFrame = 0;
             this.playedOnce = true;
+            this.setFrame(0);
+
         }
 
     }

@@ -41,7 +41,7 @@ public abstract class Character extends MapObject implements ICharacter{
     // Animations
     private ArrayList<BufferedImage[]> sprites;
     private final int[] numFrames = {
-            2, 8, 1, 2, 4, 2, 5
+            1, 4, 1, 2, 4, 1, 5
     };
 
     // Animation actions
@@ -91,7 +91,7 @@ public abstract class Character extends MapObject implements ICharacter{
 
     private void init(){
         this.setWidth(100);
-        this.setHeight(129);
+        this.setHeight(122);
         this.setCwidth(90);
         this.setCheight(100);
 
@@ -99,7 +99,7 @@ public abstract class Character extends MapObject implements ICharacter{
         this.setMaxSpeed(5.6);
         this.setStopSpeed(0.4);
         this.setFallSpeed(0.15);
-        this.setMaxFallSpeed(4.0);
+        this.setMaxFallSpeed(6.0);
         this.setJumpStart(-8.8);
         this.setStopJumpSpeed(0.3);
 
@@ -130,19 +130,20 @@ public abstract class Character extends MapObject implements ICharacter{
 
                 for(int j = 0; j < this.numFrames[i]; j++) {
 
-                    if(i != this.ATTACKING) {
+
+                    if(i==this.ATTACKING||i==this.CASTING||i==this.JUMPING||i==this.GLIDING||i==this.FALLING) {
+                        bi[j] = spritesheet.getSubimage(
+                                j * this.getWidth()*2,
+                                i * this.getHeight(),
+                                this.getWidth()*2,
+                                this.getHeight()
+                        );
+                    }
+                    else  {
                         bi[j] = spritesheet.getSubimage(
                                 j * this.getWidth(),
                                 i * this.getHeight(),
                                 this.getWidth(),
-                                this.getHeight()
-                        );
-                    }
-                    else {
-                        bi[j] = spritesheet.getSubimage(
-                                j * this.getWidth() * 2,
-                                i * this.getHeight(),
-                                this.getWidth() * 2,
                                 this.getHeight()
                         );
                     }
@@ -367,7 +368,7 @@ public abstract class Character extends MapObject implements ICharacter{
        }
 
         // check done flinching
-        if(this.flinching){
+        if(this.flinching) {
             long elapsed = (System.nanoTime() - this.flinchTimer) / 1000000;
             if(elapsed > 1000){
                 this.flinching = false;
@@ -380,7 +381,7 @@ public abstract class Character extends MapObject implements ICharacter{
                 this.setCurrentAction(this.ATTACKING);
                 this.getAnimation().setFrames(this.sprites.get(this.ATTACKING));
                 this.getAnimation().setDelay(50);
-                this.setWidth(60);
+                //this.setWidth(120);
             }
         }
         else if(this.casting) {
@@ -388,7 +389,7 @@ public abstract class Character extends MapObject implements ICharacter{
                 this.setCurrentAction(this.CASTING);
                 this.getAnimation().setFrames(sprites.get(this.CASTING));
                 this.getAnimation().setDelay(100);
-                this.setWidth(30);
+                this.setWidth(120);
             }
         }
         else if(this.getDy() > 0) {
@@ -397,14 +398,14 @@ public abstract class Character extends MapObject implements ICharacter{
                     this.setCurrentAction(this.GLIDING);
                     this.getAnimation().setFrames(sprites.get(this.GLIDING));
                     this.getAnimation().setDelay(100);
-                    this.setWidth(30);
+                    //this.setWidth(120);
                 }
             }
             else if(this.getCurrentAction() != this.FALLING) {
                 this.setCurrentAction(this.FALLING);
                 this.getAnimation().setFrames(this.sprites.get(this.FALLING));
                 this.getAnimation().setDelay(100);
-                this.setWidth(30);
+                this.setWidth(120);
             }
         }
         else if(this.getDy() < 0) {
@@ -412,7 +413,7 @@ public abstract class Character extends MapObject implements ICharacter{
                 this.setCurrentAction(this.JUMPING);
                 this.getAnimation().setFrames(this.sprites.get(this.JUMPING));
                 this.getAnimation().setDelay(-1);
-                this.setWidth(30);
+                this.setWidth(120);
             }
         }
         else if(this.isLeft() || this.isRight()) {
@@ -420,7 +421,7 @@ public abstract class Character extends MapObject implements ICharacter{
                 this.setCurrentAction(this.WALKING);
                 this.getAnimation().setFrames(this.sprites.get(this.WALKING));
                 this.getAnimation().setDelay(40);
-                this.setWidth(30);
+               // this.setWidth(120);
             }
         }
         else {
@@ -428,7 +429,7 @@ public abstract class Character extends MapObject implements ICharacter{
                 this.setCurrentAction(this.IDLE);
                 this.getAnimation().setFrames(this.sprites.get(this.IDLE));
                 this.getAnimation().setDelay(400);
-                this.setWidth(30);
+                this.setWidth(120);
             }
         }
 

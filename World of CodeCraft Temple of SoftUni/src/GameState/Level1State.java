@@ -19,7 +19,6 @@ public class Level1State extends GameState{
     private ArrayList<Enemy> enemies;
     private ArrayList<Explosion> explosions;
     private Character player;
-    private boolean isInitialize = false;
     private boolean hasWon = false;
 
     private HUD hud;
@@ -37,7 +36,7 @@ public class Level1State extends GameState{
     @Override
     public void initialize() {
 
-        // TODO: Player is null
+
         this.player = this.getCharacter();
         this.hud = new HUD(this.player);
 
