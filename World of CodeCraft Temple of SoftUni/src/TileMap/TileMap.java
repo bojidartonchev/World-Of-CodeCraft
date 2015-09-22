@@ -88,7 +88,7 @@ public class TileMap {
     public void loadMap(String s) {
 
         try ( InputStream in = getClass().getResourceAsStream(s)){
-            
+
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(in)
             );

@@ -52,44 +52,39 @@ public abstract class Character extends MapObject implements ICharacter{
     private static final int GLIDING = 4;
     private static final int CASTING = 5;
     private static final int ATTACKING = 6;
-    private static final int DEFAULTLEVEL = 1;
+    private static final int DEFAULT_LEVEL = 1;
 
 
 
     protected Character(String name, TileMap tileMap, int maxHealth){
         super(tileMap);
-        this.setState(DEFAULTLEVEL);
+        this.setState(DEFAULT_LEVEL);
         this.name = name;
         this.health = this.maxHealth = maxHealth;
-        this.init();
-        this.spells = new ArrayList<>();
-        Spell spell = new Spell(this.getTileMap(),true);
-        this.spells.add(spell);
-        this.setAttackDamage(8);
-        this.setAttackRange(40);
-        this.setMana(2500);
-        this.setMaxMana(2500);
-
-
+        this.initCharacter(name, maxHealth);
+        initSpells();
     }
 
     protected Character(String name, TileMap tileMap, int maxHealth, int level){
         super(tileMap);
         this.setState(level);
-        this.name = name;
-        this.health = this.maxHealth = maxHealth;
-        this.init();
+
+        this.initCharacter(name, maxHealth);
+        initSpells();
+
+    }
+
+    private void initSpells() {
         this.spells = new ArrayList<>();
         Spell spell = new Spell(this.getTileMap(),true);
         this.spells.add(spell);
-        this.setAttackDamage(8);
-        this.setAttackRange(40);
-        this.setMana(2500);
-        this.setMaxMana(2500);
     }
 
 
-    private void init(){
+    private void initCharacter(String name, int maxHealth){
+        this.name = name;
+        this.health = this.maxHealth = maxHealth;
+
         this.setWidth(100);
         this.setHeight(122);
         this.setCwidth(90);
@@ -101,7 +96,12 @@ public abstract class Character extends MapObject implements ICharacter{
         this.setFallSpeed(0.15);
         this.setMaxFallSpeed(6.0);
         this.setJumpStart(-8.8);
-        this.setStopJumpSpeed(0.3);
+        this.setStopJumpSpeed(0.5);
+
+        this.setAttackDamage(8);
+        this.setAttackRange(40);
+        this.setMana(2500);
+        this.setMaxMana(2500);
 
         this.setFacingRight(true);
         // load sprites // vse oshte nqmame gif za characterite
