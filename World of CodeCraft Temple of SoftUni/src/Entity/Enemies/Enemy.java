@@ -64,7 +64,7 @@ public abstract class Enemy extends MapObject {
     }
 
     public boolean isDead(){
-        return  this.isDead;
+        return  this.currentHealth <=0;
     }
 
     public int getDamage(){
@@ -76,16 +76,8 @@ public abstract class Enemy extends MapObject {
     }
 
     public void hit(int damage){
-        if(isDead || isFlinching){
-            return;
-        }
 
         this.currentHealth-=damage;
-
-        if(this.currentHealth <= 0){
-            this.currentHealth = 0;
-            this.isDead = true;
-        }
 
         this.isFlinching = true;
         this.flinchTimer = System.nanoTime();
@@ -98,16 +90,16 @@ public abstract class Enemy extends MapObject {
         checkTileMapCollision();
         setPosition(this.getXtemp(), this.getYtemp());
 
-        // check if flinching
-        if(this.isFlinching()){
-            long elapsedTime = (System.nanoTime() - getFlinchTimer()) / 1_000_000;
-
-            if(elapsedTime > 400){
-                setFlinching(false);
-            }
-        }
+        checkIfFlinching();
 
         // if hits a wall, change direction to opposite
+        checkIfHitsWall();
+
+        //update animation
+        this.getAnimation().update();
+    }
+
+    private void checkIfHitsWall() {
         if(this.isRight()  && this.getDx() == 0){
 
             this.setRight(false);
@@ -120,9 +112,16 @@ public abstract class Enemy extends MapObject {
             this.setRight(true);
             this.setFacingRight(true);
         }
+    }
 
-        //update animation
-        this.getAnimation().update();
+    private void checkIfFlinching() {
+        if(this.isFlinching()){
+            long elapsedTime = (System.nanoTime() - getFlinchTimer()) / 1_000_000;
+
+            if(elapsedTime > 400){
+                setFlinching(false);
+            }
+        }
     }
 
     protected void setAnimation(long animationDelay) {

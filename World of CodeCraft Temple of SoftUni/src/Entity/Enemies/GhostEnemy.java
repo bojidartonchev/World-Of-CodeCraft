@@ -16,6 +16,13 @@ public class GhostEnemy extends  Enemy{
     public GhostEnemy(TileMap tileMap){
         super(tileMap, EnemyType.GHOST);
 
+        initGhost();
+
+        super.loadSprites(spritesPath, numberOfSprites);
+        setAnimation(animationDelay);
+    }
+
+    private void initGhost() {
         this.setMoveSpeed(1.2);
         this.setMaxSpeed(1.2);
         this.setFallSpeed(0.0);
@@ -31,9 +38,6 @@ public class GhostEnemy extends  Enemy{
         this.setHeight(90);
         this.setCwidth(50);
         this.setCheight(60);
-
-        super.loadSprites(spritesPath, numberOfSprites);
-        setAnimation(animationDelay);
     }
 
     protected void setAnimation(long animationDelay) {

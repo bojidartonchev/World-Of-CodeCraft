@@ -21,7 +21,7 @@ public class Spell extends MapObject {
         this.setSpellDamage(5);
         this.setFacingRight(right);
 
-        this.setMoveSpeed(3.8);
+        this.setMoveSpeed(4.5);
         if (right) {
             this.setDx(this.getMoveSpeed());
         } else {

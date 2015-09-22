@@ -15,6 +15,13 @@ public class HelmetEnemy extends Enemy {
     public HelmetEnemy(TileMap tileMap){
         super(tileMap, EnemyType.HELMET);
 
+        initHelmet();
+
+        super.loadSprites(spritesPath, numberOfSprites);
+        this.setAnimation(animationDelay);
+    }
+
+    private void initHelmet() {
         this.setMoveSpeed(2.3);
         this.setMaxSpeed(2.3);
         this.setFallSpeed(0.2);
@@ -30,9 +37,6 @@ public class HelmetEnemy extends Enemy {
         this.setHeight(90);
         this.setCwidth(50);
         this.setCheight(60);
-
-        super.loadSprites(spritesPath, numberOfSprites);
-        this.setAnimation(animationDelay);
     }
 
     protected void setAnimation(long animationDelay) {
