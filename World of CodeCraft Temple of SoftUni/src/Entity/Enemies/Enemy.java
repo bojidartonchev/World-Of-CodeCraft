@@ -121,7 +121,6 @@ public abstract class Enemy extends MapObject {
             this.setFacingRight(true);
         }
 
-        this.setDx(0.2);
         //update animation
         this.getAnimation().update();
     }
@@ -153,18 +152,17 @@ public abstract class Enemy extends MapObject {
 
         // movement
         if(this.isLeft()){
-            this.setDx(this.getDx() - this.getMoveSpeed()); // getDX = 0 ?
+            this.setDx(this.getDx() - this.getMoveSpeed());
             if(this.getDx() < -this.getMaxSpeed()){
                 this.setDx(- this.getMaxSpeed());
             }
         }
-        else if(this.isRight()){
+         if(this.isRight()){
             this.setDx(this.getDx() + this.getMoveSpeed());
             if(this.getDx() > this.getMaxSpeed()){
                 this.setDx(this.getMaxSpeed());
             }
         }
-
         // falling
         if(this.isFalling()){
             this.setDy(this.getDy() + this.getFallSpeed());

@@ -1,22 +1,19 @@
 package Characters;
 
-import Entity.Spell;
 import TileMap.TileMap;
-
-import java.util.ArrayList;
 
 public class Mage extends Character {
 
     private int intellect;
-    private static final int DEFAULTMAGEINTELLECT = 512; //TODO set intellect
+    private static final int DEFAULT_MAGE_INTELLECT = 512; //TODO set intellect
 
     public Mage(String name, TileMap tileMap, int maxHealth) {
         super(name, tileMap, maxHealth);
-        this.setIntellect(this.DEFAULTMAGEINTELLECT);
+        this.setIntellect(this.DEFAULT_MAGE_INTELLECT);
     }
     public Mage(String name, TileMap tileMap, int maxHealth,int level) {
         super(name, tileMap, maxHealth,level);
-        this.setIntellect(this.DEFAULTMAGEINTELLECT);
+        this.setIntellect(this.DEFAULT_MAGE_INTELLECT);
     }
 
     public void setIntellect(int value){

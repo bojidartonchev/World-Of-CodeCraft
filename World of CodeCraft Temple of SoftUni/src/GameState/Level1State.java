@@ -22,6 +22,8 @@ public class Level1State extends GameState{
     private boolean hasWon = false;
 
     private HUD hud;
+    private boolean isBossDropped = false;
+
     public Level1State(GameStateManager gsm) {
         super(gsm);
         this.tileMap = new TileMap(120);
@@ -85,9 +87,7 @@ public class Level1State extends GameState{
             ghostEnemy.setPosition(ghostsCoordinates[i].x, ghostsCoordinates[i].y);
             this.enemies.add(ghostEnemy);
         }
-        FinalBoss boss = new FinalBoss(this.getTileMap());
-        boss.setPosition(10800,700);
-        this.enemies.add(boss);
+
     }
 
 
@@ -110,6 +110,12 @@ public class Level1State extends GameState{
             System.out.println("You Won!!!");
         }
 
+        if(!isBossDropped){
+            FinalBoss boss = new FinalBoss(this.getTileMap(), this.player);
+            boss.setPosition(400,800);
+            this.enemies.add(boss);
+            this.isBossDropped = true;
+        }
         this.player.update();
 
         this.tileMap.setPosition(
