@@ -4,7 +4,7 @@ import Entity.Animation;
 import Entity.Enemies.Enemy;
 import Entity.MapObject;
 import Entity.Spell;
-import Interfaces.ICharacter;
+import Interfaces.Attackable;
 import TileMap.TileMap;
 
 import javax.imageio.ImageIO;
@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public abstract class Character extends MapObject implements ICharacter{
+public abstract class Character extends MapObject implements Attackable {
 
     // Player stuff
     private int health;

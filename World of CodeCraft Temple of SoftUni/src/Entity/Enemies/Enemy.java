@@ -2,6 +2,7 @@ package Entity.Enemies;
 
 import Entity.Animation;
 import Entity.MapObject;
+import Interfaces.Attackable;
 import TileMap.TileMap;
 
 import javax.imageio.ImageIO;
@@ -10,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 import java.io.IOException;
 
-public abstract class Enemy extends MapObject {
+public abstract class Enemy extends MapObject implements Attackable {
     private EnemyType type;
     private BufferedImage[] sprites;
 
@@ -170,9 +171,6 @@ public abstract class Enemy extends MapObject {
 
     @Override
     public void draw(Graphics2D graphics){
-       //(notOnScreen()){
-       //  return;
-       //
 
         setMapPosition();
 
