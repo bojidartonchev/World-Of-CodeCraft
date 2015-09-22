@@ -112,7 +112,7 @@ public class Level1State extends GameState{
 
         if(!isBossDropped){
             FinalBoss boss = new FinalBoss(this.getTileMap(), this.player);
-            boss.setPosition(400,800);
+            boss.setPosition(12000, 800);
             this.enemies.add(boss);
             this.isBossDropped = true;
         }
