@@ -33,7 +33,7 @@ public class HUD {
 
     private void loadImage() {
         try{
-            this.image = ImageIO.read(getClass().getResourceAsStream("/HUD/hud.gif"));
+            this.image = ImageIO.read(getClass().getResourceAsStream("/HUD/hud.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
