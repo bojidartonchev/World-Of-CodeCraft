@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="World of CodeCraft Temple of SoftUni:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/World_of_CodeCraft_Temple_of_SoftUni_jar</output-path>
+    <root id="archive" name="World of CodeCraft Temple of SoftUni.jar">
+      <element id="module-output" name="World of CodeCraft Temple of SoftUni" />
+      <element id="library" level="project" name="Java" />
+      <element id="library" level="project" name="Java1" />
+    </root>
+  </artifact>
+</component>

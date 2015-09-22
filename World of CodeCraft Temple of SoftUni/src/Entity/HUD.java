@@ -1,26 +1,26 @@
 package Entity;
 
+import Characters.Character;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import Characters.Character;
-
 public class HUD {
     // coordinates
     private final int X = 0;
-    private final int Y = 5;
-    private final int X_PLAYER_HEALTH = 25;
-    private final int Y_PLAYER_HEALTH  = 20;
-    private final int X_PLAYER_FIRE_LEVEL = 30;
-    private final int Y_PLAYER_FIRE_LEVEL  = 41;
+    private final int Y = 10;
+    private final int X_PLAYER_HEALTH = 80;
+    private final int Y_PLAYER_HEALTH  = 50;
+    private final int X_PLAYER_FIRE_LEVEL = 50;
+    private final int Y_PLAYER_FIRE_LEVEL  = 113;
     // data
     private Character player;
     private BufferedImage image;
     private Font font;
 
-    private int fontSize = 14;
+    private int fontSize = 30;
 
     public HUD(Character player){
 
@@ -42,6 +42,7 @@ public class HUD {
     public void draw(Graphics2D graphics){
         graphics.drawImage(this.image, this.X, this.Y, null);
         graphics.setFont(this.font);
+
         graphics.setColor(Color.WHITE);
 
         String playerHealthStatus = String.format("%d/%d", this.player.getHealth(), this.player.getMaxHealth());
