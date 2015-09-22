@@ -167,6 +167,14 @@ public abstract class Character extends MapObject implements Attackable {
         return this.mana;
     }
 
+    public boolean isFlinching() {
+        return flinching;
+    }
+
+    public void setFlinching(boolean flinching) {
+        this.flinching = flinching;
+    }
+
     public int getMaxMana() {
         return this.maxMana;
     }

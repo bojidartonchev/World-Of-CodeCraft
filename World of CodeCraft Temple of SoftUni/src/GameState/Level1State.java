@@ -97,6 +97,7 @@ public class Level1State extends GameState{
         // update player
         try{
         if(player.getHealth() <= 0 || this.player.isPlayerOutOfBoundsOfMap()){
+            this.player.setFlinching(false);
             this.bg = new Background("/Backgrounds/gameover.png",0);
             return;
         }}catch (Exception ex){
