@@ -24,7 +24,7 @@ public class Background {
             this.image = ImageIO.read(getClass().getResourceAsStream(s));
             this.moveScale = moveScale;
         }catch (Exception e){
-            e.printStackTrace();
+            System.out.println("closed");
         }
     }
 
